@@ -2,7 +2,7 @@ package com.ufcg.si1.model;
 
 import com.ufcg.si1.util.ObjWrapper;
 
-public class PrefeituraExtra implements SituacaoPrefeitura{
+public class PrefeituraExtra implements SituacaoPrefeitura {
 
 	@Override
 	public ObjWrapper<Integer> getSituacaoGeral(double numQueixasAbertas, int queixaService) {

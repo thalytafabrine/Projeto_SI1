@@ -33,7 +33,7 @@ public class EspecialidadeController {
 
 	//Especialidade
 
-	@RequestMapping(value = "/especialidade/", method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<String> incluirEspecialidade(@RequestBody Especialidade esp, UriComponentsBuilder ucBuilder) {
 		try {
 			especialidadeService.insere(esp);
@@ -48,7 +48,7 @@ public class EspecialidadeController {
 		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/especialidade/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> consultarEspecialidade(@PathVariable("id") long id) {
 
 		Especialidade q = especialidadeService.findById(id);
