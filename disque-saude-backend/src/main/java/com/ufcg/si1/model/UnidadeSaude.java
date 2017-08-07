@@ -15,9 +15,10 @@ public class UnidadeSaude {
 
     private String descricao;
 
-    private List especialidades = new ArrayList();
+    private List<Especialidade> especialidades = new ArrayList<>();
 
     private long [] numeroQueixas = new long[1000];
+    
     int contador = 0;
 
     public UnidadeSaude(String descricao) {
