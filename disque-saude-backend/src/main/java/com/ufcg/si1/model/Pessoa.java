@@ -1,16 +1,12 @@
 package com.ufcg.si1.model;
 
 public class Pessoa{
+	
 	private String nome;
 
 	private String email;
 	
 	private Endereco endereco;
-
-	public Pessoa(){
-		super();
-	}
-
 
 	public Pessoa(String nome, String email, String rua, String uf, String cidade) {
 		this.nome = nome;

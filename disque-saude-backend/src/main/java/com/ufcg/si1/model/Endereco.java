@@ -8,10 +8,6 @@ public class Endereco {
 
 	private String cidade;
 
-	public Endereco(){
-
-	}
-
 	public Endereco(String rua, String uf, String cidade) {
 		this.rua = rua;
 		this.uf = uf;
