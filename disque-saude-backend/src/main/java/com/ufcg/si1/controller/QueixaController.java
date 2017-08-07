@@ -37,7 +37,7 @@ public class QueixaController {
         List<Queixa> queixas = queixaService.findAllQueixas();
 
         if (queixas.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             // You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<List<Queixa>>(queixas, HttpStatus.OK);
@@ -51,7 +51,7 @@ public class QueixaController {
         try {
             queixa.abrir();
         } catch (ObjetoInvalidoException e) {
-            return new ResponseEntity<List>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         queixaService.saveQueixa(queixa);
 
@@ -66,7 +66,7 @@ public class QueixaController {
 
         Queixa q = queixaService.findById(id);
         if (q == null) {
-            return new ResponseEntity(new CustomErrorType("Queixa with id " + id
+            return new ResponseEntity<>(new CustomErrorType("Queixa with id " + id
                     + " not found"), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Queixa>(q, HttpStatus.OK);
@@ -79,7 +79,7 @@ public class QueixaController {
         Queixa currentQueixa = queixaService.findById(id);
 
         if (currentQueixa == null) {
-            return new ResponseEntity(new CustomErrorType("Unable to upate. Queixa with id " + id + " not found."),
+            return new ResponseEntity<>(new CustomErrorType("Unable to upate. Queixa with id " + id + " not found."),
                     HttpStatus.NOT_FOUND);
         }
 
@@ -96,7 +96,7 @@ public class QueixaController {
 
         Queixa queixa = queixaService.findById(id);
         if (queixa == null) {
-            return new ResponseEntity(new CustomErrorType("Unable to delete. Queixa with id " + id + " not found."),
+            return new ResponseEntity<>(new CustomErrorType("Unable to delete. Queixa with id " + id + " not found."),
                     HttpStatus.NOT_FOUND);
         }
         queixaService.deleteQueixaById(id);
@@ -105,7 +105,7 @@ public class QueixaController {
 
 
     @RequestMapping(value = "/fechar", method = RequestMethod.POST)
-    public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) {
+    public ResponseEntity<Queixa> fecharQueixa(@RequestBody Queixa queixaAFechar) {
         queixaAFechar.situacao = Situacao.FECHADA;
         queixaService.updateQueixa(queixaAFechar);
         return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);

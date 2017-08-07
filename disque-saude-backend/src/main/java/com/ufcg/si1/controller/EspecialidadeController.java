@@ -1,7 +1,5 @@
 package com.ufcg.si1.controller;
 
-import java.util.List;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ufcg.si1.model.Especialidade;
-import com.ufcg.si1.model.UnidadeSaude;
 import com.ufcg.si1.service.EspecialidadeService;
 import com.ufcg.si1.service.EspecialidadeServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
 
-import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoJaExistenteException;
 import exceptions.Rep;
 
@@ -53,7 +49,7 @@ public class EspecialidadeController {
 
 		Especialidade q = especialidadeService.findById(id);
 		if (q == null) {
-			return new ResponseEntity(new CustomErrorType("Especialidade with id " + id
+			return new ResponseEntity<>(new CustomErrorType("Especialidade with id " + id
 					+ " not found"), HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Especialidade>(q, HttpStatus.OK);
