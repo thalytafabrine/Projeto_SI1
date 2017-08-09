@@ -6,6 +6,7 @@ public class PrefeituraExtra implements SituacaoPrefeitura {
 
 	@Override
 	public ObjWrapper<Integer> getSituacaoGeral(double numQueixasAbertas, int queixaService) {
+		
 		if (numQueixasAbertas / queixaService > 0.1) {
 			return new ObjWrapper<Integer>(0);
 		} else {
@@ -15,5 +16,4 @@ public class PrefeituraExtra implements SituacaoPrefeitura {
 			return new ObjWrapper<Integer>(2);
 		}
 	}
-
 }
