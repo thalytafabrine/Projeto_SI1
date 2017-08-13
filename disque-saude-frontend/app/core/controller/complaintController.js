@@ -1,3 +1,4 @@
+    // verificar se o http.post esta correto
 app.controller("registerComplaintCtrl", function ($scope, $http, toastr, $location) {
 
     $scope.registerComplaint = function (complaint) {
@@ -12,7 +13,7 @@ app.controller("registerComplaintCtrl", function ($scope, $http, toastr, $locati
     }
 });
 
-
+    // verificar se o http.get esta correto
 app.controller("searchComplaintCtrl", function ($scope, $http) {
     $scope.complaint;
 
@@ -30,6 +31,7 @@ app.controller("generalSituationComplaintsCtrl", function ($scope, $http) {
 
     $scope.situation = "";
 
+    // verificar se o http.get esta correto
     var getGeneralSituationComplaints = function (neighborhood) {
         $http.get("http://localhost:5000/SpringBootRestApi/queixa/geral/situacao")
             .then(function success(response) {

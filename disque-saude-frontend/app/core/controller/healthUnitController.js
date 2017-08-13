@@ -16,7 +16,8 @@ app.controller("searchHealthUnitCtrl", function ($scope, $http) {
     }
 });
 
-app.controller("searchAverangeCtrl", function ($scope, $http) {
+    // verificar se o http.get esta correto
+app.controller("searchAverageCtrl", function ($scope, $http) {
 
     $scope.average = null;
 

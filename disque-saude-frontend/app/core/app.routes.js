@@ -12,7 +12,7 @@ app.config(function ($routeProvider) {
         controller : "searchHealthUnitCtrl",
     }).when("/searchaverage",{
         templateUrl : "view/search_average_per_patient.html",
-        controller: "searchAverangeCtrl"
+        controller: "searchAverageCtrl"
     }).when("/createdcomplaint/:id", {
         templateUrl : "view/successPage.html",
         controller : "messageCreatedComplaintCtrl"
