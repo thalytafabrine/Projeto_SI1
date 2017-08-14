@@ -32,7 +32,7 @@ public class Queixa {
 	}
 
 	public long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(long id) {
@@ -40,7 +40,7 @@ public class Queixa {
 	}
 
 	public String getDescricao() {
-		return descricao;
+		return this.descricao;
 	}
 
 	public void setDescricao(String descricao) {
@@ -48,7 +48,7 @@ public class Queixa {
 	}
 
 	public SituacaoQueixa getSituacao() {
-		return situacao;
+		return this.situacao;
 	}
 
 	public void abrir() throws ObjetoInvalidoException {
@@ -68,7 +68,7 @@ public class Queixa {
 	}
 
 	public String getComentario() {
-		return comentario;
+		return this.comentario;
 	}
 
 	public void setComentario(String comentario) {
@@ -76,7 +76,7 @@ public class Queixa {
 	}
 
 	public Pessoa getSolicitante() {
-		return solicitante;
+		return this.solicitante;
 	}
 
 	public void setSolicitante(Pessoa solicitante) {

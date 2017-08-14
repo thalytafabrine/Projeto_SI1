@@ -48,9 +48,6 @@ public class UnidadeController {
 		headers.setLocation(ucBuilder.path("/{id}").buildAndExpand(us.getCodigo()).toUri());
 		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	}
-
-	
-	// Esse método não deveria estar em EspecialidadeController?
 	
 	@RequestMapping(value = "/especialidade", method = RequestMethod.GET)
 	public ResponseEntity<?> consultaEspecialidadeporUnidadeSaude(@RequestBody int codigoUnidadeSaude) {

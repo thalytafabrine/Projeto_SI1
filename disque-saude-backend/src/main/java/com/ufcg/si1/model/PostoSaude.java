@@ -12,10 +12,6 @@ public class PostoSaude extends UnidadeSaude {
         this.taxaDiariaAtendimentos = taxaDiariaAtendimentos;
     }
 
-    public PostoSaude() {
-        super();
-    }
-
     public int getAtendentes() {
         return this.atendentes;
     }

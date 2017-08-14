@@ -34,6 +34,45 @@ public class Prefeitura {
 			this.situacaoPrefeitura = situacaoPrefeitura;
 		}
 
-		// FALTA HASHCODE E EQUALS
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			long temp;
+			temp = Double.doubleToLongBits(indiceRegular);
+			result = prime * result + (int) (temp ^ (temp >>> 32));
+			temp = Double.doubleToLongBits(indiceRuim);
+			result = prime * result + (int) (temp ^ (temp >>> 32));
+			result = prime * result + ((situacaoPrefeitura == null) ? 0 : situacaoPrefeitura.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			
+			Prefeitura other = (Prefeitura) obj;
+			
+			if (Double.doubleToLongBits(indiceRegular) != Double.doubleToLongBits(other.indiceRegular))
+				return false;
+			if (Double.doubleToLongBits(indiceRuim) != Double.doubleToLongBits(other.indiceRuim))
+				return false;
+			
+			if (situacaoPrefeitura == null) {
+				if (other.situacaoPrefeitura != null)
+					return false;
+			} else if (!situacaoPrefeitura.equals(other.situacaoPrefeitura))
+				return false;
+			
+			return true;
+		}
+
+		
 
 }
