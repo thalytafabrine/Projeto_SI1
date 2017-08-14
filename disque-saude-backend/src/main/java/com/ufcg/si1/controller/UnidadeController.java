@@ -1,6 +1,5 @@
 package com.ufcg.si1.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpHeaders;
@@ -46,7 +45,7 @@ public class UnidadeController {
 		}
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/{id}").buildAndExpand(us.pegaCodigo()).toUri());
+		headers.setLocation(ucBuilder.path("/{id}").buildAndExpand(us.getCodigo()).toUri());
 		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	}
 
@@ -74,16 +73,10 @@ public class UnidadeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllUnidades() {
-		List<Object> unidades = unidadeSaudeService.getAll();
+		List<UnidadeSaude> unidades = unidadeSaudeService.getAll();
 		if (unidades.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		else{
-			List<UnidadeSaude> unidadeSaudes = new ArrayList<>();
-			for (Object  saude: unidades) {
-				if(saude instanceof UnidadeSaude){
-					unidadeSaudes.add((UnidadeSaude) saude);
-				}
-			}
-			return new ResponseEntity<>(unidadeSaudes, HttpStatus.OK);
+			return new ResponseEntity<>(unidades, HttpStatus.OK);
 		}
 	}
 
@@ -111,7 +104,7 @@ public class UnidadeController {
 		double c = 0.0;
 		if (unidade instanceof PostoSaude)
 			c = ((PostoSaude) unidade).getAtendentes()
-			/ ((PostoSaude) unidade).taxaDiaria();
+			/ ((PostoSaude) unidade).getTaxaDiariaAtendimentos();
 		else if (unidade instanceof Hospital){
 			c = ((Hospital) unidade).getNumeroMedicos()
 					/ ((Hospital) unidade).getNumeroPacientesDia();

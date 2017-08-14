@@ -11,7 +11,8 @@ import java.util.List;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = PostoSaude.class, name = "posto")
 })
-public class UnidadeSaude {
+public abstract class UnidadeSaude {
+	
     private int codigo;
 
     private String descricao;
@@ -26,8 +27,8 @@ public class UnidadeSaude {
         this.codigo = 0; // gerado no repositorio
         this.descricao = descricao;
     }
-    public UnidadeSaude(){
-    }
+    
+    public UnidadeSaude() {}
 
     public void addQueixaProxima(long id) {
         if (this instanceof PostoSaude){
@@ -35,11 +36,11 @@ public class UnidadeSaude {
         }
     }
 
-    public String pegaDescricao() {
+    public String getDescricao() {
         return this.descricao;
     }
 
-    public void mudaDescricao(String descricao) {
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
@@ -51,13 +52,26 @@ public class UnidadeSaude {
         this.especialidades.add(esp);
     }
 
-    public int pegaCodigo() {
+    public int getCodigo() {
         return this.codigo;
     }
 
-    public void mudaCodigo(int cod) {
+    public void setCodigo(int cod) {
         this.codigo = cod;
     }
+    
+	public int getContador() {
+		return contador;
+	}
+	
+	public void setContador(int contador) {
+		this.contador = contador;
+	}
+	
+	public abstract int getNumFuncionarios();
+	
+	public abstract float getAtendimentosDiarios();
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -68,6 +82,7 @@ public class UnidadeSaude {
 		result = prime * result + Arrays.hashCode(numeroQueixas);
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		
@@ -96,7 +111,5 @@ public class UnidadeSaude {
 			return false;
 		return true;
 	}
-    
-    
 
 }
