@@ -12,7 +12,7 @@ import java.util.List;
         @JsonSubTypes.Type(value = PostoSaude.class, name = "posto")
 })
 public abstract class UnidadeSaude {
-	
+
     private int codigo;
 
     private String descricao;
@@ -20,7 +20,7 @@ public abstract class UnidadeSaude {
     private List<Especialidade> especialidades = new ArrayList<>();
 
     private long [] numeroQueixas = new long[1000];
-    
+
     int contador = 0;
 
     public UnidadeSaude(String descricao) {
@@ -59,19 +59,19 @@ public abstract class UnidadeSaude {
     public void setCodigo(int cod) {
         this.codigo = cod;
     }
-    
+
 	public int getContador() {
 		return contador;
 	}
-	
+
 	public void setContador(int contador) {
 		this.contador = contador;
 	}
-	
+
 	public abstract int getNumFuncionarios();
-	
+
 	public abstract float getAtendimentosDiarios();
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,19 +82,19 @@ public abstract class UnidadeSaude {
 		result = prime * result + Arrays.hashCode(numeroQueixas);
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		
+
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		
+
 		UnidadeSaude other = (UnidadeSaude) obj;
-		
+
 		if (codigo != other.codigo)
 			return false;
 		if (descricao == null) {
@@ -111,5 +111,4 @@ public abstract class UnidadeSaude {
 			return false;
 		return true;
 	}
-
 }

@@ -1,6 +1,6 @@
 package com.ufcg.si1.enums;
 
-public enum Situacao {
+public enum SituacaoQueixa {
 
 	ABERTA, EM_ANDAMENTO, FECHADA;
 	

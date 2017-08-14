@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.ufcg.si1.enums.Situacao;
+import com.ufcg.si1.enums.SituacaoQueixa;
+import com.ufcg.si1.model.Prefeitura;
 import com.ufcg.si1.model.PrefeituraNormal;
 import com.ufcg.si1.model.Queixa;
-import com.ufcg.si1.model.SituacaoPrefeitura;
+import com.ufcg.si1.model.Situacao;
 import com.ufcg.si1.service.QueixaService;
 import com.ufcg.si1.service.QueixaServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
-import com.ufcg.si1.util.ObjWrapper;
 
 import exceptions.ObjetoInvalidoException;
 
@@ -30,7 +30,7 @@ import exceptions.ObjetoInvalidoException;
 public class QueixaController {
 
 	private QueixaService queixaService = new QueixaServiceImpl();
-	private SituacaoPrefeitura situacaoAtualPrefeitura = new PrefeituraNormal();
+	private Prefeitura prefeitura = new PrefeituraNormal();
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
     public ResponseEntity<List<Queixa>> listAllUsers() {
@@ -55,7 +55,7 @@ public class QueixaController {
         }
         queixaService.saveQueixa(queixa);
 
-       // HttpHeaders headers = new HttpHeaders();
+        // HttpHeaders headers = new HttpHeaders();
         //headers.setLocation(ucBuilder.path("/api/queixa/{id}").buildAndExpand(queixa.getId()).toUri());
 
         return new ResponseEntity<Queixa>(queixa, HttpStatus.CREATED);
@@ -106,7 +106,7 @@ public class QueixaController {
 
     @RequestMapping(value = "/fechar", method = RequestMethod.POST)
     public ResponseEntity<Queixa> fecharQueixa(@RequestBody Queixa queixaAFechar) {
-        queixaAFechar.situacao = Situacao.FECHADA;
+        queixaAFechar.situacao = SituacaoQueixa.FECHADA;
         queixaService.updateQueixa(queixaAFechar);
         return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
     }
@@ -116,7 +116,7 @@ public class QueixaController {
         Iterator<Queixa> it = queixaService.getIterator();
         for (Iterator<Queixa> it1 = it; it1.hasNext(); ) {
             Queixa q = it1.next();
-            if (q.getSituacao() == Situacao.ABERTA)
+            if (q.getSituacao() == SituacaoQueixa.ABERTA)
                 contador++;
         }
 
@@ -124,17 +124,11 @@ public class QueixaController {
     }
     
     @RequestMapping(value = "/geral/situacao", method = RequestMethod.GET)
-    public ResponseEntity<?> getSituacaoGeralQueixas() {
-
+    public Situacao getSituacaoGeralQueixas() {
         // dependendo da situacao da prefeitura, o criterio de avaliacao muda
         // se normal, mais de 20% abertas eh ruim, mais de 10 eh regular
         // se extra, mais de 10% abertas eh ruim, mais de 5% eh regular
-        ObjWrapper<Integer> obj = this.situacaoAtualPrefeitura.getSituacaoGeral((double) numeroQueixasAbertas(), queixaService.size());
+    	return this.prefeitura.getSituacaoPrefeitura().getSituacaoGeral(numeroQueixasAbertas(), queixaService.size());
 
-        //situacao retornada
-        //0: RUIM
-        //1: REGULAR
-        //2: BOM
-        return new ResponseEntity<ObjWrapper<Integer>>(obj, HttpStatus.OK);
     }
 }
