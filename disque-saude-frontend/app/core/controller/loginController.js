@@ -1,6 +1,6 @@
 app.controller("loginCtrl", function ($scope, $http, $state) {
 
-	$scope.signIn = function(email, senha) {
+	$scope.login = function(email, senha) {
 
 
 		$scope.profile = [];

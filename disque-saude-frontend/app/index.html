@@ -14,6 +14,15 @@
         <link rel="stylesheet" href="assets/css/searchHealthUnit.css">
         <link rel="stylesheet" type="text/css" href="bower_components/angular-toastr/dist/angular-toastr.css" />
 
+    </head>
+    
+    <body>
+
+        <div class="container">
+            <div ng-view=""></div>
+        </div>
+        <div ng-include="'view/include/footer.html'"></div>
+
         <!-- Bower scripts: -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/jquery-ui/jquery-ui.js"></script>
@@ -29,15 +38,7 @@
         <script src="core/app.routes.js"></script>
         <script src="core/controller/complaintController.js"></script>
         <script src="core/controller/healthUnitController.js"></script>
-    </head>
-    
-    <body>
-
-        <div class="container">
-            <div ng-view=""></div>
-        </div>
-        <div ng-include="'view/include/footer.html'"></div>
-
+        <script src="core/controller/loginController.js"></script>
 
     </body>
 </html>
