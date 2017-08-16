@@ -2,97 +2,68 @@ package com.ufcg.si1.service;
 
 import com.ufcg.si1.enums.SituacaoQueixa;
 import com.ufcg.si1.model.Queixa;
-import org.springframework.stereotype.Service;
+import com.ufcg.si1.repository.QueixaRepository;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 @Service("queixaService")
 public class QueixaServiceImpl implements QueixaService {
-
-    private static final AtomicLong counter = new AtomicLong();
-
-    private static List<Queixa> queixas;
-
-    static {
-        queixas = populateDummyQueixas();
-    }
-
-    private static List<Queixa> populateDummyQueixas() {
-        List<Queixa> queixas = new ArrayList<Queixa>();
-
-        queixas.add(new Queixa(counter.incrementAndGet(), "Passei mal com uma coxinha",
-                SituacaoQueixa.FECHADA, "", "Jose Silva",
-                "jose@gmail.com", "rua dos tolos", "PE", "Recife"));
-
-
-        queixas.add(new Queixa(counter.incrementAndGet(),
-                "Bacalhau estragado, passamos mal!", SituacaoQueixa.FECHADA, "",
-                "Ailton Sousa", "ailton@gmail.com", "rua dos bobos", "PB",
-                "Joao Pessoa"));
-
-        queixas.add(new Queixa(counter.incrementAndGet(), "Nossa rua estah muito suja", SituacaoQueixa.FECHADA, "",
-                "Jose Silva", "jose@gmail.com", "rua dos tolos", "PE", "Recife"));
-
-
-        queixas.add(new Queixa(counter.incrementAndGet(), "iluminacao horrivel, muitos assaltos", SituacaoQueixa.FECHADA, "",
-                "Ailton Sousa", "ailton@gmail.com", "rua dos bobos", "PB",
-                "Joao Pessoa"));
-
-        return queixas;
-    }
+	
+	@Autowired
+	QueixaRepository queixaRepository;
 
     public List<Queixa> findAllQueixas() {
-        return queixas;
+        return this.queixaRepository.findAll();
     }
 
     public void saveQueixa(Queixa queixa) {
-        queixa.setId(counter.incrementAndGet());
-        queixas.add(queixa);
+    	this.queixaRepository.save(queixa);
     }
 
-    public void updateQueixa(Queixa queixa) {
-        int index = queixas.indexOf(queixa);
-        queixas.set(index, queixa);
+    public Queixa updateQueixa(Integer id, Queixa queixa) throws Exception {
+    	Queixa queixaAtual = this.findById(id);
+    	if (queixaAtual == null)
+    		throw new Exception("Impossível atualixar. Queixa de id " + id + " não encontrada.");
+        queixaAtual.setDescricao(queixa.getDescricao());
+        queixaAtual.setComentario(queixa.getComentario());
+        this.queixaRepository.save(queixaAtual);
+
+        return queixa;
     }
 
-    public void deleteQueixaById(long id) {
-
-        for (Iterator<Queixa> iterator = queixas.iterator(); iterator.hasNext(); ) {
-            Queixa q = iterator.next();
-            if (q.getId() == id) {
-                iterator.remove();
-            }
+    public Queixa deleteQueixaById(Integer id) throws Exception {
+    	Queixa queixaExcluida = this.findById(id);
+      	if (queixaExcluida == null) {
+              throw new Exception("Impossível deletar. Queixa de id " + id + " não encontrada.");
         }
+        this.queixaRepository.delete(queixaExcluida);
+        return queixaExcluida;
     }
 
     @Override
     //este metodo nunca eh chamado, mas se precisar estah aqui
     public int size() {
-        return queixas.size();
+        return this.findAllQueixas().size();
     }
 
-    @Override
-    public Iterator<Queixa> getIterator() {
-        return queixas.iterator();
+    public void deleteAllQueixas() {
+    	this.queixaRepository.deleteAll();
     }
 
-    public void deleteAllUsers() {
-        queixas.clear();
+    public Queixa findById(Integer id) {
+        return this.queixaRepository.findOne(id);
     }
 
-    public Queixa findById(long id) {
-        for (Queixa queixa : queixas) {
-            if (queixa.getId() == id) {
-                return queixa;
-            }
-        }
-        return null;
-    }
-
-
+	@Override
+	public Queixa fecharQueixa(Queixa queixaAFechar) throws Exception {
+		Queixa queixa = this.queixaRepository.findOne(queixaAFechar.getId());
+		queixa.situacao = SituacaoQueixa.FECHADA;
+		this.queixaRepository.save(queixa);
+		return queixaAFechar;
+	}
 
 }
