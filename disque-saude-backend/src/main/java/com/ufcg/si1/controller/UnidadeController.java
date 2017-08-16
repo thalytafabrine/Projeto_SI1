@@ -34,10 +34,10 @@ public class UnidadeController {
 	private UnidadeSaudeService unidadeSaudeService = new UnidadeSaudeServiceImpl();
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<String> incluirUnidadeSaude(@RequestBody UnidadeSaude us, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<String> incluirUnidadeSaude(@RequestBody UnidadeSaude unidadeSaude, UriComponentsBuilder ucBuilder) {
 
 		try {
-			unidadeSaudeService.insere(us);
+			unidadeSaudeService.insere(unidadeSaude);
 		} catch (Rep e) {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		} catch (ObjetoJaExistenteException e) {
@@ -45,7 +45,7 @@ public class UnidadeController {
 		}
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/{id}").buildAndExpand(us.getCodigo()).toUri());
+		headers.setLocation(ucBuilder.path("/{id}").buildAndExpand(unidadeSaude.getCodigo()).toUri());
 		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	}
 	
@@ -80,12 +80,12 @@ public class UnidadeController {
 	@RequestMapping(value = "/unidade/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> consultarUnidadeSaude(@PathVariable("id") long id) {
 
-		Object us = unidadeSaudeService.findById(id);
-		if (us == null) {
+		Object unidadeSaude = unidadeSaudeService.findById(id);
+		if (unidadeSaude == null) {
 			return new ResponseEntity<>(new CustomErrorType("Unidade with id " + id
 					+ " not found"), HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(us, HttpStatus.OK);
+		return new ResponseEntity<>(unidadeSaude, HttpStatus.OK);
 	}
 
 
@@ -111,13 +111,13 @@ public class UnidadeController {
 
 	@RequestMapping(value="/busca", method= RequestMethod.GET)
 	public ResponseEntity<?> consultarUnidadeSaudePorBairro(@RequestParam(value = "bairro", required = true) String bairro){
-		Object us = unidadeSaudeService.findByBairro(bairro);
-		if (us == null && !(us instanceof UnidadeSaude)) {
+		Object unidadeSaude = unidadeSaudeService.findByBairro(bairro);
+		if (unidadeSaude == null && !(unidadeSaude instanceof UnidadeSaude)) {
 			return new ResponseEntity<>(new CustomErrorType("Unidade with bairro " + bairro
 					+ " not found"), HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<UnidadeSaude>((UnidadeSaude) us, HttpStatus.OK);
+		return new ResponseEntity<UnidadeSaude>((UnidadeSaude) unidadeSaude, HttpStatus.OK);
 	}
 
 }

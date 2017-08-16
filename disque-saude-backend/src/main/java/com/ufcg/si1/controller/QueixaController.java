@@ -33,7 +33,7 @@ public class QueixaController {
 	private Prefeitura prefeitura = new PrefeituraNormal();
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
-    public ResponseEntity<List<Queixa>> listAllUsers() {
+    public ResponseEntity<List<Queixa>> listAllQueixas() {
         List<Queixa> queixas = queixaService.findAllQueixas();
 
         if (queixas.isEmpty()) {
@@ -42,8 +42,6 @@ public class QueixaController {
         }
         return new ResponseEntity<List<Queixa>>(queixas, HttpStatus.OK);
     }
-	
-	   // -------------------Abrir uma Queixa-------------------------------------------
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<?> abrirQueixa(@RequestBody Queixa queixa, UriComponentsBuilder ucBuilder) {
@@ -55,71 +53,67 @@ public class QueixaController {
         }
         queixaService.saveQueixa(queixa);
 
-        // HttpHeaders headers = new HttpHeaders();
-        //headers.setLocation(ucBuilder.path("/api/queixa/{id}").buildAndExpand(queixa.getId()).toUri());
-
         return new ResponseEntity<Queixa>(queixa, HttpStatus.CREATED);
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> consultarQueixa(@PathVariable("id") long id) {
+    public ResponseEntity<?> consultarQueixa(@PathVariable("id") Integer id) {
 
-        Queixa q = queixaService.findById(id);
-        if (q == null) {
-            return new ResponseEntity<>(new CustomErrorType("Queixa with id " + id
-                    + " not found"), HttpStatus.NOT_FOUND);
+        Queixa queixa = queixaService.findById(id);
+        if (queixa == null) {
+            return new ResponseEntity<>(new CustomErrorType("Queixa com id " + id + " não encontrada."), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Queixa>(q, HttpStatus.OK);
+        return new ResponseEntity<Queixa>(queixa, HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateQueixa(@PathVariable("id") long id, @RequestBody Queixa queixa) {
+    public ResponseEntity<?> atualizaQueixa(@PathVariable("id") Integer id, @RequestBody Queixa queixa) throws Exception {
 
-        Queixa currentQueixa = queixaService.findById(id);
-
-        if (currentQueixa == null) {
-            return new ResponseEntity<>(new CustomErrorType("Unable to upate. Queixa with id " + id + " not found."),
-                    HttpStatus.NOT_FOUND);
-        }
-
-        currentQueixa.setDescricao(queixa.getDescricao());
-        currentQueixa.setComentario(queixa.getComentario());
-
-        queixaService.updateQueixa(currentQueixa);
-        return new ResponseEntity<Queixa>(currentQueixa, HttpStatus.OK);
+    	try {
+    		queixaService.updateQueixa(id, queixa);
+    	} catch (Exception e) {
+    		return new ResponseEntity<>(new CustomErrorType("Impossível atualizar. Queixa com id " + id + " não encontrada"),
+ 					HttpStatus.NOT_FOUND);
+    	}
+    	
+        return new ResponseEntity<Queixa>(HttpStatus.OK);
     }
     
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteQueixa(@PathVariable("id") long id) {
-
-        Queixa queixa = queixaService.findById(id);
-        if (queixa == null) {
-            return new ResponseEntity<>(new CustomErrorType("Unable to delete. Queixa with id " + id + " not found."),
-                    HttpStatus.NOT_FOUND);
-        }
-        queixaService.deleteQueixaById(id);
-        return new ResponseEntity<Queixa>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<?> deleteQueixa(@PathVariable("id") Integer id) throws Exception {
+    	try {
+  			queixaService.deleteQueixaById(id);
+  			} catch (Exception e) {
+ 			return new ResponseEntity<>(new CustomErrorType("Impossível excluir. Queixa com id " + id + " não encontrada."),
+ 					HttpStatus.NOT_FOUND);
+ 		}
+    	
+ 		return new ResponseEntity<Queixa>(HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/fechar", method = RequestMethod.POST)
-    public ResponseEntity<Queixa> fecharQueixa(@RequestBody Queixa queixaAFechar) {
-        queixaAFechar.situacao = SituacaoQueixa.FECHADA;
-        queixaService.updateQueixa(queixaAFechar);
-        return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
+    public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) throws Exception {
+    	Integer id = queixaAFechar.getId();
+    	try {
+ 			queixaService.fecharQueixa(queixaAFechar);
+ 		} catch (Exception e) {
+ 			return new ResponseEntity<>(new CustomErrorType("Não é possível fechar. Queixa com id " + id + " não encontrada."),
+ 					HttpStatus.NOT_FOUND);
+ 		}
+         
+ 		return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
     }
     
     private double numeroQueixasAbertas() {
         int contador = 0;
-        Iterator<Queixa> it = queixaService.getIterator();
-        for (Iterator<Queixa> it1 = it; it1.hasNext(); ) {
-            Queixa q = it1.next();
-            if (q.getSituacao() == SituacaoQueixa.ABERTA)
+        List<Queixa> queixas = queixaService.findAllQueixas();
+        for (Queixa queixa : queixas) {
+            if (queixa.getSituacao() == SituacaoQueixa.ABERTA)
                 contador++;
         }
-
         return contador;
     }
     
