@@ -12,12 +12,10 @@ public interface EspecialidadeService {
     Especialidade procura(int codigo) throws Rep,
             ObjetoInexistenteException;
 
-    List getListaEspecialidade()
+    List<Especialidade> getListaEspecialidade()
                     throws Rep, ObjetoInexistenteException;
 
     int size();
-
-    Especialidade getElemento(int posicao);
 
     void insere(Especialidade esp)throws Rep,
             ObjetoJaExistenteException;
