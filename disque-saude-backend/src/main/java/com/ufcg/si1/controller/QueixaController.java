@@ -1,6 +1,5 @@
 package com.ufcg.si1.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
