@@ -1,21 +1,23 @@
-app.controller("loginCtrl", function ($scope, $http, $state) {
+app.controller("loginCtrl", function($scope, loginApi, $location, $rootScope){
 
-	$scope.login = function(email, senha) {
+    $rootScope.logado = false;
 
+    $scope.login = function(email, senha ){
+        loginApi.login(email, senha).then(function success(response) {
+                
+                
+                $location.path("/");
+                $rootScope.logado = true;
+            }, function error(error) {
+                console.log(error);
+                console.log("Erro ao realizar login");
+                $rootScope.logado = false;
+            });
+        
+    }
 
-		$scope.profile = [];
-		
-	    var url = "/usuario/login";
-	    var data = {
-	    		email: email,
-	    		senha:senha
-		};
+    $scope.voltar = function () {
+        $location.path("/");
 
-	    $http.post(url, data).then(function (response) {
-		    
-		}, function (response) {
-		});
-	    }
-	};
-
-}
+    }
+});
