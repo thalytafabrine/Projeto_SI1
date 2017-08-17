@@ -23,4 +23,6 @@ public interface EspecialidadeService {
     boolean existe(int codigo);
 
     Especialidade findById(long id);
+
+	Especialidade getElemento(int posicao);
 }

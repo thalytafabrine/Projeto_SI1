@@ -1,9 +1,13 @@
 package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.Especialidade;
+import com.ufcg.si1.repository.EspecialidadeRepository;
+
 import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoJaExistenteException;
 import exceptions.Rep;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,6 +15,13 @@ import java.util.List;
 
 @Service("especialidadeService")
 public class EspecialidadeServiceImpl implements EspecialidadeService {
+	
+	@Autowired
+	EspecialidadeRepository especialidadeRepository;
+	
+	public EspecialidadeServiceImpl(EspecialidadeRepository especialidadeRepository) {
+		this.especialidadeRepository = especialidadeRepository;
+	}
 
     private List<Especialidade> especialidades;
 
@@ -21,8 +32,10 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
     @Override
     public Especialidade procura(int codigo) throws Rep,
             ObjetoInexistenteException {
+    	
+    	List<Especialidade> especialidades = this.getListaEspecialidade();
 
-        for (Especialidade esp : this.especialidades) {
+        for (Especialidade esp : especialidades) {
         	if(esp.getCodigo() == codigo)
         		return esp;
         }
@@ -32,12 +45,18 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
 
     @Override
     public List<Especialidade> getListaEspecialidade() {
-        return this.especialidades;
+        return this.especialidadeRepository.findAll();
     }
 
     @Override
     public int size() {
         return this.especialidades.size();
+    }
+    
+    @Override
+    public Especialidade getElemento(int posicao) {
+    	return this.especialidadeRepository.getOne(posicao);
+    	
     }
     
     @Override
@@ -48,12 +67,14 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
     		throw new ObjetoJaExistenteException("Objeto jah existe no array");
     	}
     	
-    	this.especialidades.add(esp);
+    	this.especialidadeRepository.save(esp);
     }
 
     @Override
     public boolean existe(int codigo) {
-        for (Especialidade esp : this.especialidades) {
+    	List<Especialidade> especialidades = this.getListaEspecialidade();
+    	
+        for (Especialidade esp : especialidades) {
         	if(esp.getCodigo() == codigo)
         		return true;
         }
@@ -62,7 +83,8 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
 
     // falta corrigir isso
     public Especialidade findById(long id) {
-        for (Especialidade esp: this.especialidades) {
+    	List<Especialidade> especialidades = this.getListaEspecialidade();
+        for (Especialidade esp: especialidades) {
             if (esp.getCodigo() == id) {
                 return esp;
             }
