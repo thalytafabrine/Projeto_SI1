@@ -9,6 +9,7 @@ import java.util.List;
 
 
 public interface EspecialidadeService {
+	
     Especialidade procura(int codigo) throws Rep,
             ObjetoInexistenteException;
 
