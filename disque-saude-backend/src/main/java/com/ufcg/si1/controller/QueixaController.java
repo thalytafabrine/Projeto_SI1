@@ -2,6 +2,7 @@ package com.ufcg.si1.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +19,6 @@ import com.ufcg.si1.model.PrefeituraNormal;
 import com.ufcg.si1.model.Queixa;
 import com.ufcg.si1.model.Situacao;
 import com.ufcg.si1.service.QueixaService;
-import com.ufcg.si1.service.QueixaServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
 
 import exceptions.ObjetoInvalidoException;
@@ -28,8 +28,14 @@ import exceptions.ObjetoInvalidoException;
 @CrossOrigin
 public class QueixaController {
 
-	private QueixaService queixaService = new QueixaServiceImpl();
-	private Prefeitura prefeitura = new PrefeituraNormal();
+	@Autowired
+	private QueixaService queixaService;
+	private Prefeitura prefeitura;
+	
+	public QueixaController(QueixaService queixaService) {
+		this.queixaService = queixaService;
+		this.prefeitura = new PrefeituraNormal();
+	}
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
     public ResponseEntity<List<Queixa>> listAllQueixas() {
@@ -75,7 +81,6 @@ public class QueixaController {
     		return new ResponseEntity<>(new CustomErrorType("Impossível atualizar. Queixa com id " + id + " não encontrada"),
  					HttpStatus.NOT_FOUND);
     	}
-    	
         return new ResponseEntity<Queixa>(HttpStatus.OK);
     }
     
@@ -84,11 +89,10 @@ public class QueixaController {
     public ResponseEntity<?> deleteQueixa(@PathVariable("id") Integer id) throws Exception {
     	try {
   			queixaService.deleteQueixaById(id);
-  			} catch (Exception e) {
+  		} catch (Exception e) {
  			return new ResponseEntity<>(new CustomErrorType("Impossível excluir. Queixa com id " + id + " não encontrada."),
  					HttpStatus.NOT_FOUND);
  		}
-    	
  		return new ResponseEntity<Queixa>(HttpStatus.OK);
     }
 
@@ -99,10 +103,9 @@ public class QueixaController {
     	try {
  			queixaService.fecharQueixa(queixaAFechar);
  		} catch (Exception e) {
- 			return new ResponseEntity<>(new CustomErrorType("Não é possível fechar. Queixa com id " + id + " não encontrada."),
+ 			return new ResponseEntity<>(new CustomErrorType("Impossível fechar. Queixa com id " + id + " não encontrada."),
  					HttpStatus.NOT_FOUND);
  		}
-         
  		return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
     }
     

@@ -2,9 +2,11 @@ package com.ufcg.si1.model;
 
 import exceptions.ObjetoInvalidoException;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.ufcg.si1.enums.SituacaoQueixa;
 
@@ -18,6 +20,7 @@ public class Queixa {
 
 	private String descricao;
 
+	@OneToOne(cascade=CascadeType.ALL)
 	private Pessoa solicitante;
 
 	public SituacaoQueixa situacao;
@@ -27,8 +30,7 @@ public class Queixa {
 	public Queixa() {}
 
 	public Queixa(Integer id, String descricao, SituacaoQueixa situacao, String comentario,
-                  String nome, String email,
-				  String rua, String uf, String cidade) {
+                  String nome, String email, String rua, String uf, String cidade) {
 		this.id = id;
 		this.descricao = descricao;
 		this.situacao = situacao;

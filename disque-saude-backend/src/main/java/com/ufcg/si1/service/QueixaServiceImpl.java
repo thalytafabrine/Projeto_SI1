@@ -15,6 +15,10 @@ public class QueixaServiceImpl implements QueixaService {
 	
 	@Autowired
 	QueixaRepository queixaRepository;
+	
+	public QueixaServiceImpl(QueixaRepository queixaRepository) {
+		this.queixaRepository = queixaRepository;
+	}
 
     public List<Queixa> findAllQueixas() {
         return this.queixaRepository.findAll();
