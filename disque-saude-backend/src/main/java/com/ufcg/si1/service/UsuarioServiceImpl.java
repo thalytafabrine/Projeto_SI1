@@ -13,6 +13,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	
+	public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
+		this.usuarioRepository = usuarioRepository;
+	}
 
 	public Usuario cadastrar(Usuario usuario) {
 
