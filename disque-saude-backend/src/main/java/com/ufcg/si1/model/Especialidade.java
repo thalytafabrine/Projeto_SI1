@@ -9,12 +9,11 @@ public class Especialidade {
 	
 	@Id
 	@GeneratedValue
-    private int codigo;
+    private Long id;
 
     private String descricao;
 
     public Especialidade(String descricao) {
-        this.codigo = 0; // gerado no repositorio
         this.descricao = descricao;
     }
 
@@ -26,43 +25,11 @@ public class Especialidade {
         this.descricao = descricao;
     }
 
-    public int getCodigo() {
-        return this.codigo;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setCodigo(int cod) {
-        this.codigo = cod;
+    public void setCodigo(Long id) {
+        this.id = id;
     }
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + codigo;
-		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		
-		Especialidade other = (Especialidade) obj;
-		
-		if (codigo != other.codigo)
-			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		return true;
-	}
-    
 }

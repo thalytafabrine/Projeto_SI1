@@ -1,6 +1,6 @@
 package com.ufcg.si1.controller;
 
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,15 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ufcg.si1.model.Especialidade;
 import com.ufcg.si1.service.EspecialidadeService;
-import com.ufcg.si1.service.EspecialidadeServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
-
-import exceptions.ObjetoJaExistenteException;
-import exceptions.Rep;
 
 @RestController
 @RequestMapping("/especialidade")
@@ -25,36 +20,28 @@ import exceptions.Rep;
 
 public class EspecialidadeController {
 
-	private EspecialidadeService especialidadeService = new EspecialidadeServiceImpl();
-
-	//Especialidade
-
+	@Autowired
+	private EspecialidadeService especialidadeService;
+	
+	public EspecialidadeController(EspecialidadeService especialidadeService) {
+		this.especialidadeService = especialidadeService;
+	}
+	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<String> incluirEspecialidade(@RequestBody Especialidade esp, UriComponentsBuilder ucBuilder) {
-		try {
-			especialidadeService.insere(esp);
-		} catch (Rep e) {
-			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-		} catch (ObjetoJaExistenteException e) {
-			return new ResponseEntity<String>(HttpStatus.CONFLICT);
-		}
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/api/especialidade/{id}").buildAndExpand(esp.getCodigo()).toUri());
-		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+	public ResponseEntity<Especialidade> addEspecialidade(@RequestBody Especialidade esp) {
+		Especialidade especialidade = especialidadeService.addEspecialidade(esp);
+		return new ResponseEntity<Especialidade>(especialidade, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> consultarEspecialidade(@PathVariable("id") long id) {
-
-		Especialidade q = especialidadeService.findById(id);
-		if (q == null) {
+	public ResponseEntity<?> consultarEspecialidade(@PathVariable("id") Long id) {
+		try {
+			Especialidade especialidade = especialidadeService.getEspecialidade(id);
+			return new ResponseEntity<Especialidade>(especialidade, HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<>(new CustomErrorType("Especialidade with id " + id
 					+ " not found"), HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Especialidade>(q, HttpStatus.OK);
 	}
-	
-	
 	
 }
