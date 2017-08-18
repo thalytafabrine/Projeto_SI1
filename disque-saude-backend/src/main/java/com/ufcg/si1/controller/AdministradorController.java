@@ -12,33 +12,10 @@ import com.ufcg.si1.model.Administrador;
 import com.ufcg.si1.service.AdministradorService;
 
 @RestController
-@RequestMapping("/administrador")
+@RequestMapping("/administrador") //verificar se realmente precisa desse caminho (acho q n)
 public class AdministradorController {
 	
-	@Autowired
-	private AdministradorService administradorService;
-	
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<Administrador> cadastrar(@RequestBody Administrador administrador) {
-		
-		Administrador administradorCadastrado = administradorService.cadastrar(administrador);
-		
-		if (administradorCadastrado == null) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-		
-		return new ResponseEntity<>(administradorCadastrado, HttpStatus.CREATED);
-	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<Administrador> logar(@RequestBody Administrador administrador) {
-		
-		Administrador administradorLogado = administradorService.logar(administrador);
-		
-		if (administradorLogado == null) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-		
-		return new ResponseEntity<>(administradorLogado, HttpStatus.OK);
-	}
+	/*decidir o q é melhor ser colocado aqui, acho q alguns metodos do queixaController precisar estar aqui,
+	 * apenas n faz sentido estar lá.
+	 */
 }
