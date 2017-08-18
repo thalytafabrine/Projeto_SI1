@@ -30,6 +30,4 @@ public class CadastroController {
 		
 		return new ResponseEntity<>(administradorCadastrado, HttpStatus.CREATED);
 	}
-	
-	
 }

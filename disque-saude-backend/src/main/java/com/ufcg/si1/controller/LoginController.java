@@ -15,12 +15,11 @@ import com.ufcg.si1.service.AdministradorService;
 @RestController
 @CrossOrigin
 public class LoginController {
-	
-	
+
 	@Autowired
 	AdministradorService administradorService;
 	
-	@RequestMapping(value = "/login/", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Administrador> logar(@RequestBody Administrador administrador) {
 		
 		Administrador administradorLogado = administradorService.logar(administrador);

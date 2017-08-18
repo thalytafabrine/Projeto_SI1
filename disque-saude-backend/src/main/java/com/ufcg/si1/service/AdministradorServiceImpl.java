@@ -1,7 +1,5 @@
 package com.ufcg.si1.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,28 +18,24 @@ public class AdministradorServiceImpl implements AdministradorService {
 	}
 
 	public Administrador cadastrar(Administrador administrador) {
-
-		List<Administrador> todosOsAdministradores = administradorRepository.findAll();
-
-		for (Administrador administrador2 : todosOsAdministradores) {
-			if (administrador2.getEmail().equals(administrador.getEmail())) {
+		if (administradorRepository.findByEmail(administrador.getEmail()) != null) {
 				return null;
-			}
 		}
 		return administradorRepository.save(administrador);
 	}
 
 	public Administrador logar(Administrador administrador) {
 
-		List<Administrador> todosOsAdministradores = administradorRepository.findAll();
-
-		for (Administrador administrador2 : todosOsAdministradores) {
-			if (administrador2.getEmail().equals(administrador.getEmail())) {
-				if (administrador2.getSenha().equals(administrador.getSenha())) {
-					return administrador2;
-				}
-			}
+		return validation(administrador.getEmail(), administrador.getSenha());
+	}
+	
+	public Administrador validation(String email, String senha) {
+		Administrador administrador = administradorRepository.findByEmail(email);
+		if (administrador != null) {
+			if (administrador.getSenha().equals(senha)) {
+				return administrador;
+			}return null;
 		}
-		return null;
+		return administrador;
 	}
 }
