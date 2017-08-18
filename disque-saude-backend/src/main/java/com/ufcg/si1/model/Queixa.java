@@ -10,39 +10,37 @@ import javax.persistence.OneToOne;
 
 import com.ufcg.si1.enums.SituacaoQueixa;
 
-
 @Entity
 public class Queixa {
 
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Long id;
 
 	private String descricao;
 
 	@OneToOne(cascade=CascadeType.ALL)
 	private Pessoa solicitante;
-
+	
 	public SituacaoQueixa situacao;
 
 	private String comentario = ""; // usado na atualizacao da queixa
 
 	public Queixa() {}
 
-	public Queixa(Integer id, String descricao, SituacaoQueixa situacao, String comentario,
+	public Queixa(String descricao, SituacaoQueixa situacao, String comentario,
                   String nome, String email, String rua, String uf, String cidade) {
-		this.id = id;
 		this.descricao = descricao;
 		this.situacao = situacao;
 		this.comentario = comentario;
 		this.solicitante = new Pessoa(nome, email, rua, uf, cidade);
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -109,7 +107,7 @@ public class Queixa {
 			return false;
 		
 		Queixa other = (Queixa) obj;
-		if (id != other.id)
+		if (id != other.getId())
 			return false;
 		return true;
 	}

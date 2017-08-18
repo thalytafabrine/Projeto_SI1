@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.ufcg.si1.model.Queixa;
 
 @Repository
-public interface QueixaRepository extends JpaRepository<Queixa, Integer> {
+public interface QueixaRepository extends JpaRepository<Queixa, Long> {
 
 }

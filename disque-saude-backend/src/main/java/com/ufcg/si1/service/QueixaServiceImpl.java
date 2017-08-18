@@ -24,14 +24,17 @@ public class QueixaServiceImpl implements QueixaService {
         return this.queixaRepository.findAll();
     }
 
-    public void saveQueixa(Queixa queixa) {
-    	this.queixaRepository.save(queixa);
+    public Queixa saveQueixa(Queixa queixa) throws Exception {
+    	if (queixa == null)
+    		throw new Exception("Impossivel salvar queixa");
+    	queixa.abrir();
+    	return this.queixaRepository.save(queixa);
     }
 
-    public Queixa updateQueixa(Integer id, Queixa queixa) throws Exception {
+    public Queixa updateQueixa(Long id, Queixa queixa) throws Exception {
     	Queixa queixaAtual = this.findById(id);
     	if (queixaAtual == null)
-    		throw new Exception("Impossível atualixar. Queixa de id " + id + " não encontrada.");
+    		throw new Exception("Impossível atualizar. Queixa de id " + id + " não encontrada.");
         queixaAtual.setDescricao(queixa.getDescricao());
         queixaAtual.setComentario(queixa.getComentario());
         this.queixaRepository.save(queixaAtual);
@@ -39,7 +42,7 @@ public class QueixaServiceImpl implements QueixaService {
         return queixa;
     }
 
-    public Queixa deleteQueixaById(Integer id) throws Exception {
+    public Queixa deleteQueixaById(Long id) throws Exception {
     	Queixa queixaExcluida = this.findById(id);
       	if (queixaExcluida == null) {
               throw new Exception("Impossível deletar. Queixa de id " + id + " não encontrada.");
@@ -49,7 +52,6 @@ public class QueixaServiceImpl implements QueixaService {
     }
 
     @Override
-    //este metodo nunca eh chamado, mas se precisar estah aqui
     public int size() {
         return this.findAllQueixas().size();
     }
@@ -58,8 +60,11 @@ public class QueixaServiceImpl implements QueixaService {
     	this.queixaRepository.deleteAll();
     }
 
-    public Queixa findById(Integer id) {
-        return this.queixaRepository.findOne(id);
+    public Queixa findById(Long id) throws Exception{
+        Queixa queixa = this.queixaRepository.findOne(id);
+        if (queixa == null)
+        	throw new Exception("Queixa nao encontrada.");
+        return queixa;
     }
 
 	@Override

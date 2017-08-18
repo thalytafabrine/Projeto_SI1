@@ -8,13 +8,13 @@ public interface QueixaService {
 
 	List<Queixa> findAllQueixas();
 
-    void saveQueixa(Queixa queixa);
+    Queixa saveQueixa(Queixa queixa) throws Exception;
 
-	Queixa findById(Integer id);
+	Queixa findById(Long id) throws Exception;
 
-	Queixa updateQueixa(Integer id, Queixa user) throws Exception;
+	Queixa updateQueixa(Long id, Queixa user) throws Exception;
 
-	Queixa deleteQueixaById(Integer id) throws Exception;
+	Queixa deleteQueixaById(Long id) throws Exception;
 
     int size();
     

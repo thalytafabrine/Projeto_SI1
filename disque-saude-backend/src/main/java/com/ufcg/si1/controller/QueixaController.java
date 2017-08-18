@@ -49,31 +49,31 @@ public class QueixaController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<?> abrirQueixa(@RequestBody Queixa queixa, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Queixa> abrirQueixa(@RequestBody Queixa queixa, UriComponentsBuilder ucBuilder) throws Exception {
 
         try {
-            queixa.abrir();
+        	queixaService.saveQueixa(queixa);
+        	return new ResponseEntity<Queixa>(queixa,HttpStatus.CREATED);
         } catch (ObjetoInvalidoException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        queixaService.saveQueixa(queixa);
-
-        return new ResponseEntity<Queixa>(queixa, HttpStatus.CREATED);
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> consultarQueixa(@PathVariable("id") Integer id) {
-
-        Queixa queixa = queixaService.findById(id);
-        if (queixa == null) {
-            return new ResponseEntity<>(new CustomErrorType("Queixa com id " + id + " não encontrada."), HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> consultarQueixa(@PathVariable("id") Long id) {
+    	try {
+    		Queixa queixa = queixaService.findById(id);
+    		return new ResponseEntity<Queixa>(queixa, HttpStatus.OK);
+    	}
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Queixa>(queixa, HttpStatus.OK);
+        
     }
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> atualizaQueixa(@PathVariable("id") Integer id, @RequestBody Queixa queixa) throws Exception {
+    public ResponseEntity<?> atualizaQueixa(@PathVariable("id") Long id, @RequestBody Queixa queixa) throws Exception {
 
     	try {
     		queixaService.updateQueixa(id, queixa);
@@ -86,7 +86,7 @@ public class QueixaController {
     
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteQueixa(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<?> deleteQueixa(@PathVariable("id") Long id) throws Exception {
     	try {
   			queixaService.deleteQueixaById(id);
   		} catch (Exception e) {
@@ -99,7 +99,7 @@ public class QueixaController {
 
     @RequestMapping(value = "/fechar", method = RequestMethod.POST)
     public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) throws Exception {
-    	Integer id = queixaAFechar.getId();
+    	Long id = queixaAFechar.getId();
     	try {
  			queixaService.fecharQueixa(queixaAFechar);
  		} catch (Exception e) {
