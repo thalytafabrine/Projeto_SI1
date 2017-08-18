@@ -1,4 +1,4 @@
-app.controller("searchHealthUnitCtrl", function ($scope, $http) {
+app.controller("healthUnitCtrl", function ($scope, $http) {
 
     $scope.units = [];
 
@@ -14,10 +14,6 @@ app.controller("searchHealthUnitCtrl", function ($scope, $http) {
                 console.log(error.data.errorMessage);
             });
     }
-});
-
-    // verificar se o http.get esta correto
-app.controller("searchAverageCtrl", function ($scope, $http) {
 
     $scope.average = null;
 
@@ -28,4 +24,5 @@ app.controller("searchAverageCtrl", function ($scope, $http) {
             console.log("Unidade Não Encontrada");
         });
     }
+
 });

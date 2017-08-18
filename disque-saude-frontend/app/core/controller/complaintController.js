@@ -1,5 +1,4 @@
-    // verificar se o http.post esta correto
-app.controller("registerComplaintCtrl", function ($scope, $http, toastr, $location) {
+app.controller("complaintCtrl", function ($scope, $http, toastr, $location, $routeParams) {
 
     $scope.registerComplaint = function (complaint) {
         $http.post("http://localhost:5000/SpringBootRestApi/queixa/", JSON.stringify(complaint))
@@ -11,10 +10,7 @@ app.controller("registerComplaintCtrl", function ($scope, $http, toastr, $locati
                 console.log("Problemas ao tentar adicionar queixa.");
             });
     }
-});
 
-    // verificar se o http.get esta correto
-app.controller("searchComplaintCtrl", function ($scope, $http) {
     $scope.complaint;
 
     $scope.searchComplaint = function (id) {
@@ -25,9 +21,6 @@ app.controller("searchComplaintCtrl", function ($scope, $http) {
             console.log(error);
         });
     }
-});
-
-app.controller("generalSituationComplaintsCtrl", function ($scope, $http) {
 
     $scope.situation = "";
 
@@ -64,13 +57,25 @@ app.controller("generalSituationComplaintsCtrl", function ($scope, $http) {
     }
 
     getGeneralSituationComplaints();
-});
 
-app.controller("messageCreatedComplaintCtrl", function ($scope, $routeParams) {
     $scope.responseComplaintId = "";
     var showMessage = function () {
         $scope.responseComplaintId = $routeParams.id;
     }
 
     showMessage();
+
+    $scope.complaints = "";
+
+    var getComplaints = function () {
+        $http.get("http://localhost:5000/SpringBootRestApi/queixa/")
+            .then(function success(response) {
+                $scope.complaints = response.data;
+                console.log(response.data);
+            })
+
+    };
+
+    getComplaints();
+
 });
