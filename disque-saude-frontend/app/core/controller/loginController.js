@@ -4,8 +4,6 @@ app.controller("loginCtrl", function($scope, loginApi, $location, $rootScope){
 
     $scope.login = function(email, senha ){
         loginApi.login(email, senha).then(function success(response) {
-                
-                
                 $location.path("/");
                 $rootScope.logado = true;
             }, function error(error) {

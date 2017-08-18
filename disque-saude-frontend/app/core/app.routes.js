@@ -22,6 +22,9 @@ app.config(function ($routeProvider) {
     }).when("/login", {
         templateUrl:"view/login.html",
         controller: "loginCtrl"
+    }).when("/cadastro", {
+        templateUrl: "view/cadastro.html",
+        controller: "cadastroCtrl"
     }).otherwise({
         redirectTo: '/'
     });
