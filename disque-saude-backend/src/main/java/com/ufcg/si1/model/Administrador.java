@@ -14,6 +14,17 @@ public class Administrador {
 	private String email;
 	private String senha;
 	
+	public Administrador(Long id, String nome, String email, String senha) {
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+	}
+	
+	public Administrador() {
+		
+	}
+	
 	public Long getId() {
 		return this.id;
 	}
