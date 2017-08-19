@@ -1,78 +1,60 @@
 package com.ufcg.si1.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ufcg.si1.enums.SituacaoGeralQueixas;
+import com.ufcg.si1.enums.SituacaoPrefeituraEnum;
+
+@Entity
 public class Prefeitura {
+	
+	@Id
+	@GeneratedValue
+	Long id;
+	
+	@Transient
+	@JsonIgnore
+	private SituacaoPrefeitura situacaoPrefeitura;
+	
+	private SituacaoPrefeituraEnum situacaoPrefeituraEnum;
 
-		private double indiceRuim;
-		private double indiceRegular;
-		private SituacaoPrefeitura situacaoPrefeitura;
-		
-		public Prefeitura() {
-			this.setSituacaoPrefeitura(new SituacaoPrefeitura(indiceRuim, indiceRegular));
-		}
+	public Prefeitura(SituacaoPrefeitura situacao) {
+		this.situacaoPrefeitura = situacao;
+	}
+	
+	public SituacaoGeralQueixas getSituacaoGeral(double numQueixasAbertas, int qtdTotalQueixas) {
+		return this.situacaoPrefeitura.getSituacaoGeral(numQueixasAbertas, qtdTotalQueixas);
+	}
+	
+	public Long getId() {
+		return id;
+	}
 
-		public double getIndiceRuim() {
-			return indiceRuim;
-		}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-		public void setIndiceRuim(double indiceRuim) {
-			this.indiceRuim = indiceRuim;
-		}
+	public SituacaoPrefeitura getSituacaoPrefeitura() {
+		return situacaoPrefeitura;
+	}
 
-		public double getIndiceRegular() {
-			return indiceRegular;
-		}
-
-		public void setIndiceRegular(double indiceRegular) {
-			this.indiceRegular = indiceRegular;
-		}
-
-		public SituacaoPrefeitura getSituacaoPrefeitura() {
-			return situacaoPrefeitura;
-		}
-
-		public void setSituacaoPrefeitura(SituacaoPrefeitura situacaoPrefeitura) {
-			this.situacaoPrefeitura = situacaoPrefeitura;
-		}
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			long temp;
-			temp = Double.doubleToLongBits(indiceRegular);
-			result = prime * result + (int) (temp ^ (temp >>> 32));
-			temp = Double.doubleToLongBits(indiceRuim);
-			result = prime * result + (int) (temp ^ (temp >>> 32));
-			result = prime * result + ((situacaoPrefeitura == null) ? 0 : situacaoPrefeitura.hashCode());
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			
-			Prefeitura other = (Prefeitura) obj;
-			
-			if (Double.doubleToLongBits(indiceRegular) != Double.doubleToLongBits(other.indiceRegular))
-				return false;
-			if (Double.doubleToLongBits(indiceRuim) != Double.doubleToLongBits(other.indiceRuim))
-				return false;
-			
-			if (situacaoPrefeitura == null) {
-				if (other.situacaoPrefeitura != null)
-					return false;
-			} else if (!situacaoPrefeitura.equals(other.situacaoPrefeitura))
-				return false;
-			
-			return true;
-		}
-
-		
-
+	public void setSituacaoPrefeitura(SituacaoPrefeitura situacaoPrefeitura) {
+		this.situacaoPrefeitura = situacaoPrefeitura;
+	}
+	
+	public SituacaoPrefeituraEnum getSituacaoPrefeituraEnum() {
+		if(this.situacaoPrefeitura instanceof PrefeituraNormal)
+			situacaoPrefeituraEnum = SituacaoPrefeituraEnum.NORMAL;
+		else if (this.situacaoPrefeitura instanceof PrefeituraExtra)
+			situacaoPrefeituraEnum = SituacaoPrefeituraEnum.EXTRA;
+		return situacaoPrefeituraEnum;
+	}
+	
+	public void setSituacaPrefeituraEnum(SituacaoPrefeituraEnum situacao) {
+		this.situacaoPrefeituraEnum = situacao;
+	}
 }
