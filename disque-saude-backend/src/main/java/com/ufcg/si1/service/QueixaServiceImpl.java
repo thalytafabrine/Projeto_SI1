@@ -24,15 +24,15 @@ public class QueixaServiceImpl implements QueixaService {
         return this.queixaRepository.findAll();
     }
 
-    public Queixa saveQueixa(Queixa queixa) throws Exception {
+    public Queixa abrirQueixa(Queixa queixa) throws Exception {
     	if (queixa == null)
     		throw new Exception("Impossivel salvar queixa");
     	queixa.abrir();
     	return this.queixaRepository.save(queixa);
     }
 
-    public Queixa updateQueixa(Long id, Queixa queixa) throws Exception {
-    	Queixa queixaAtual = this.findById(id);
+    public Queixa atualizarQueixa(Long id, Queixa queixa) throws Exception {
+    	Queixa queixaAtual = this.procurarPorId(id);
     	if (queixaAtual == null)
     		throw new Exception("Impossível atualizar. Queixa de id " + id + " não encontrada.");
         queixaAtual.setDescricao(queixa.getDescricao());
@@ -42,8 +42,8 @@ public class QueixaServiceImpl implements QueixaService {
         return queixa;
     }
 
-    public Queixa deleteQueixaById(Long id) throws Exception {
-    	Queixa queixaExcluida = this.findById(id);
+    public Queixa excluirQueixaPorId(Long id) throws Exception {
+    	Queixa queixaExcluida = this.procurarPorId(id);
       	if (queixaExcluida == null) {
               throw new Exception("Impossível deletar. Queixa de id " + id + " não encontrada.");
         }
@@ -60,7 +60,7 @@ public class QueixaServiceImpl implements QueixaService {
     	this.queixaRepository.deleteAll();
     }
 
-    public Queixa findById(Long id) throws Exception{
+    public Queixa procurarPorId(Long id) throws Exception{
         Queixa queixa = this.queixaRepository.findOne(id);
         if (queixa == null)
         	throw new Exception("Queixa nao encontrada.");

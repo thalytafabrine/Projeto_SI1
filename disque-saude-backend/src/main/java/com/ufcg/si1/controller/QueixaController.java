@@ -12,11 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ufcg.si1.enums.SituacaoQueixa;
-import com.ufcg.si1.model.Prefeitura;
-import com.ufcg.si1.model.PrefeituraNormal;
 import com.ufcg.si1.model.Queixa;
-import com.ufcg.si1.model.Situacao;
 import com.ufcg.si1.service.QueixaService;
 import com.ufcg.si1.util.CustomErrorType;
 
@@ -29,11 +25,9 @@ public class QueixaController {
 
 	@Autowired
 	private QueixaService queixaService;
-	private Prefeitura prefeitura;
 	
 	public QueixaController(QueixaService queixaService) {
 		this.queixaService = queixaService;
-		this.prefeitura = new PrefeituraNormal();
 	}
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
@@ -51,7 +45,7 @@ public class QueixaController {
     public ResponseEntity<Queixa> abrirQueixa(@RequestBody Queixa queixa) throws Exception {
 
         try {
-        	queixaService.saveQueixa(queixa);
+        	queixaService.abrirQueixa(queixa);
         	return new ResponseEntity<Queixa>(queixa,HttpStatus.CREATED);
         } catch (ObjetoInvalidoException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -61,21 +55,18 @@ public class QueixaController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> consultarQueixa(@PathVariable("id") Long id) {
     	try {
-    		Queixa queixa = queixaService.findById(id);
+    		Queixa queixa = queixaService.procurarPorId(id);
     		return new ResponseEntity<Queixa>(queixa, HttpStatus.OK);
     	}
         catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        
     }
-
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> atualizaQueixa(@PathVariable("id") Long id, @RequestBody Queixa queixa) throws Exception {
-
     	try {
-    		queixaService.updateQueixa(id, queixa);
+    		queixaService.atualizarQueixa(id, queixa);
     	} catch (Exception e) {
     		return new ResponseEntity<>(new CustomErrorType("Impossível atualizar. Queixa com id " + id + " não encontrada"),
  					HttpStatus.NOT_FOUND);
@@ -87,7 +78,7 @@ public class QueixaController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteQueixa(@PathVariable("id") Long id) throws Exception {
     	try {
-  			queixaService.deleteQueixaById(id);
+  			queixaService.excluirQueixaPorId(id);
   		} catch (Exception e) {
  			return new ResponseEntity<>(new CustomErrorType("Impossível excluir. Queixa com id " + id + " não encontrada."),
  					HttpStatus.NOT_FOUND);
@@ -108,22 +99,4 @@ public class QueixaController {
  		return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
     }
     
-    private double numeroQueixasAbertas() {
-        int contador = 0;
-        List<Queixa> queixas = queixaService.findAllQueixas();
-        for (Queixa queixa : queixas) {
-            if (queixa.getSituacao() == SituacaoQueixa.ABERTA)
-                contador++;
-        }
-        return contador;
-    }
-    
-    @RequestMapping(value = "/geral/situacao", method = RequestMethod.GET)
-    public Situacao getSituacaoGeralQueixas() {
-        // dependendo da situacao da prefeitura, o criterio de avaliacao muda
-        // se normal, mais de 20% abertas eh ruim, mais de 10 eh regular
-        // se extra, mais de 10% abertas eh ruim, mais de 5% eh regular
-    	return this.prefeitura.getSituacaoPrefeitura().getSituacaoGeral(numeroQueixasAbertas(), queixaService.size());
-
-    }
 }
