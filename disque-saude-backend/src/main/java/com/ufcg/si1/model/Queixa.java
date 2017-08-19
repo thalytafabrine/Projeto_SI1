@@ -22,6 +22,9 @@ public class Queixa {
 	@OneToOne(cascade=CascadeType.ALL)
 	private Pessoa solicitante;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	private Endereco enderecoEstabelecimento;
+	
 	public SituacaoQueixa situacao;
 
 	private String comentario = ""; // usado na atualizacao da queixa
@@ -33,7 +36,8 @@ public class Queixa {
 		this.descricao = descricao;
 		this.situacao = situacao;
 		this.comentario = comentario;
-		this.solicitante = new Pessoa(nome, email, rua, uf, cidade);
+		this.solicitante = new Pessoa(nome, email);
+		this.enderecoEstabelecimento = new Endereco(rua, uf, cidade);
 	}
 
 	public Long getId() {
@@ -54,6 +58,14 @@ public class Queixa {
 
 	public SituacaoQueixa getSituacao() {
 		return this.situacao;
+	}
+	
+	public Endereco getEnderecoEstabelecimento() {
+		return enderecoEstabelecimento;
+	}
+
+	public void setSituacao(SituacaoQueixa situacao) {
+		this.situacao = situacao;
 	}
 
 	public void abrir() throws ObjetoInvalidoException {
