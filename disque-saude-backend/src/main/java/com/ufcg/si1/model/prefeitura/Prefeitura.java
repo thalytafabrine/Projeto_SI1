@@ -51,6 +51,8 @@ public class Prefeitura {
 			situacaoPrefeituraEnum = SituacaoPrefeituraEnum.NORMAL;
 		else if (this.situacaoPrefeitura instanceof PrefeituraExtra)
 			situacaoPrefeituraEnum = SituacaoPrefeituraEnum.EXTRA;
+		else if (this.situacaoPrefeitura instanceof PrefeituraCaos)
+			situacaoPrefeituraEnum = SituacaoPrefeituraEnum.CAOS;
 		return situacaoPrefeituraEnum;
 	}
 	
