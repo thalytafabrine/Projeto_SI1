@@ -1,4 +1,4 @@
-package com.ufcg.si1.model;
+package com.ufcg.si1.model.prefeitura;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

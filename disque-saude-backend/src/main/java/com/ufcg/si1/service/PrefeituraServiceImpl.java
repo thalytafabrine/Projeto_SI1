@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ufcg.si1.enums.SituacaoGeralQueixas;
 import com.ufcg.si1.enums.SituacaoPrefeituraEnum;
 import com.ufcg.si1.enums.SituacaoQueixa;
-import com.ufcg.si1.model.Prefeitura;
-import com.ufcg.si1.model.PrefeituraNormal;
 import com.ufcg.si1.model.Queixa;
+import com.ufcg.si1.model.prefeitura.Prefeitura;
+import com.ufcg.si1.model.prefeitura.PrefeituraNormal;
 import com.ufcg.si1.repository.PrefeituraRepository;
 import com.ufcg.si1.repository.QueixaRepository;
 
