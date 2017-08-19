@@ -1,11 +1,11 @@
 app.service("loginApi", function($http, config){
 
-    var _login = function(email, senha){
-        return $http.post(config.baseUrl + "/login/");
+    var _logarAdministrador = function(email, senha){
+        return $http.post(config.baseUrl + "/login/", JSON.stringify(administrador));
     }
 
     return {
-        login : _login
+        logarAdministrador : _logarAdministrador
     }
 
 });
