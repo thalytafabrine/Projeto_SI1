@@ -2,8 +2,9 @@ app.controller("loginCtrl", function($scope, loginApi, $location, $rootScope){
 
     $rootScope.logado = false;
 
-    $scope.login = function(email, senha ){
-        loginApi.login(email, senha).then(function success(response) {
+    $scope.login = function(administrador) {
+        loginApi.logarAdministrador(administrador).then(function success(response) {
+                console.log("Usuário logado com sucesso");
                 $location.path("/");
                 $rootScope.logado = true;
             }, function error(error) {

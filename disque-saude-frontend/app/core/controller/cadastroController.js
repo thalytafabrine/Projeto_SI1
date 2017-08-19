@@ -1,15 +1,13 @@
-app.controller("cadastroCtrl", function($scope,loginApi, $location, $rootScope ) {
+app.controller("cadastroCtrl", function($scope, cadastroApi, $location) {
 
-	$rootScope.cadastrado= false;
-
-	$scope.cadastrar = function(nome, email, senha) {
-		loginApi.cadastrar(nome, email, senha).then(function success(response) {
-			$location.path("/");
+	$scope.cadastro = function(administrador) {
+		cadastroApi.salvarAdministrador(administrador).then(function success(response) {
+			console.log("Cadastro realizado com sucesso");
+			$location.path("/login");
 			$scope.cadastrado = true;
 		}, function error(error) {
                 console.log(error);
                 console.log("Erro ao cadastrar");
-                $rootScope.logado = false;
         });
 	}
 
