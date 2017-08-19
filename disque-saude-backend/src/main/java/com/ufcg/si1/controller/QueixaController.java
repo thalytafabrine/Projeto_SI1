@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ufcg.si1.enums.SituacaoQueixa;
 import com.ufcg.si1.model.Prefeitura;
@@ -49,7 +48,7 @@ public class QueixaController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<Queixa> abrirQueixa(@RequestBody Queixa queixa, UriComponentsBuilder ucBuilder) throws Exception {
+    public ResponseEntity<Queixa> abrirQueixa(@RequestBody Queixa queixa) throws Exception {
 
         try {
         	queixaService.saveQueixa(queixa);

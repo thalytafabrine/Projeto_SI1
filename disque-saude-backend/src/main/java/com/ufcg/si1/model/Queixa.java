@@ -31,11 +31,9 @@ public class Queixa {
 
 	public Queixa() {}
 
-	public Queixa(String descricao, SituacaoQueixa situacao, String comentario,
-                  String nome, String email, String rua, String uf, String cidade) {
+	public Queixa(String descricao, String nome, String email, String rua, String uf, String cidade) {
 		this.descricao = descricao;
-		this.situacao = situacao;
-		this.comentario = comentario;
+		this.situacao = SituacaoQueixa.ABERTA;
 		this.solicitante = new Pessoa(nome, email);
 		this.enderecoEstabelecimento = new Endereco(rua, uf, cidade);
 	}
