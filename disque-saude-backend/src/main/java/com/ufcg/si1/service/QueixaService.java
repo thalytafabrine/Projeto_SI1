@@ -2,13 +2,13 @@ package com.ufcg.si1.service;
 
 import java.util.List;
 
-import com.ufcg.si1.model.Queixa;
+import com.ufcg.si1.model.queixa.Queixa;
 
 public interface QueixaService {
 
 	List<Queixa> findAllQueixas();
 
-    Queixa abrirQueixa(Queixa queixa) throws Exception;
+    Queixa salvarQueixa(Queixa queixa) throws Exception;
 
 	Queixa procurarPorId(Long id) throws Exception;
 
@@ -17,8 +17,8 @@ public interface QueixaService {
 	Queixa excluirQueixaPorId(Long id) throws Exception;
 
     int size();
-    
-    Queixa fecharQueixa(Queixa queixaAFechar) throws Exception;
+
+	Queixa modificaStatusDaQueixa(Long id, String status) throws Exception;
 
 //	boolean isUserExist(Queixa user);
 	

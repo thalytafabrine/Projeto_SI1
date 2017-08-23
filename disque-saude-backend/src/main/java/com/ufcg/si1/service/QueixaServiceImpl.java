@@ -1,7 +1,6 @@
 package com.ufcg.si1.service;
 
-import com.ufcg.si1.enums.SituacaoQueixa;
-import com.ufcg.si1.model.Queixa;
+import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.repository.QueixaRepository;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class QueixaServiceImpl implements QueixaService {
         return this.queixaRepository.findAll();
     }
 
-    public Queixa abrirQueixa(Queixa queixa) throws Exception {
+    public Queixa salvarQueixa(Queixa queixa) throws Exception {
     	if (queixa == null)
     		throw new Exception("Impossivel salvar queixa");
     	queixa.abrir();
@@ -68,11 +67,19 @@ public class QueixaServiceImpl implements QueixaService {
     }
 
 	@Override
-	public Queixa fecharQueixa(Queixa queixaAFechar) throws Exception {
-		Queixa queixa = this.queixaRepository.findOne(queixaAFechar.getId());
-		queixa.situacao = SituacaoQueixa.FECHADA;
-		this.queixaRepository.save(queixa);
-		return queixaAFechar;
+	public Queixa modificaStatusDaQueixa(Long id, String status) throws Exception {
+		Queixa queixaEncontrada = queixaRepository.findOne(id);
+		if(status.equals("Abrir")){
+			queixaEncontrada.abrir();
+		}else if(status.equals("Resolver")){
+			queixaEncontrada.resolver();
+		}else{
+			queixaEncontrada.fechar();
+		}
+		
+		queixaRepository.save(queixaEncontrada);
+		
+		return queixaEncontrada;
 	}
 
 }

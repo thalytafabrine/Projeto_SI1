@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ufcg.si1.enums.SituacaoGeralQueixas;
 import com.ufcg.si1.enums.SituacaoPrefeituraEnum;
 import com.ufcg.si1.enums.SituacaoQueixa;
-import com.ufcg.si1.model.Queixa;
 import com.ufcg.si1.model.prefeitura.Prefeitura;
 import com.ufcg.si1.model.prefeitura.PrefeituraNormal;
+import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.repository.PrefeituraRepository;
 import com.ufcg.si1.repository.QueixaRepository;
 
@@ -47,7 +47,7 @@ public class PrefeituraServiceImpl implements PrefeituraService {
 		int qtdQueixasAbertas = 0;
 		
 		for (Queixa queixa : queixas) {
-			if (queixa.getSituacao().equals(SituacaoQueixa.ABERTA))
+			if (queixa.getStatus().getSituacaoQueixa().equals(SituacaoQueixa.ABERTA))
 				qtdQueixasAbertas++;
 		}
 		

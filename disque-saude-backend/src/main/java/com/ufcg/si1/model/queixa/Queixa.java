@@ -1,16 +1,19 @@
-package com.ufcg.si1.model;
-
-import exceptions.ObjetoInvalidoException;
+package com.ufcg.si1.model.queixa;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
-import com.ufcg.si1.enums.SituacaoQueixa;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ufcg.si1.model.Pessoa;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Queixa {
 
 	@Id
@@ -23,19 +26,17 @@ public class Queixa {
 	private Pessoa solicitante;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	private Endereco enderecoEstabelecimento;
-	
-	public SituacaoQueixa situacao;
+	public StatusQueixa status;
 
 	private String comentario = ""; // usado na atualizacao da queixa
 
 	public Queixa() {}
 
-	public Queixa(String descricao, String nome, String email, String rua, String uf, String cidade) {
+	public Queixa(String descricao, String comentario, StatusQueixa status, String nome, String email) {
 		this.descricao = descricao;
-		this.situacao = SituacaoQueixa.ABERTA;
+		this.comentario = comentario;
+		this.status = status;
 		this.solicitante = new Pessoa(nome, email);
-		this.enderecoEstabelecimento = new Endereco(rua, uf, cidade);
 	}
 
 	public Long getId() {
@@ -54,32 +55,28 @@ public class Queixa {
 		this.descricao = descricao;
 	}
 
-	public SituacaoQueixa getSituacao() {
-		return this.situacao;
+	public StatusQueixa getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(StatusQueixa status) {
+		this.status = status;
+	}
+
+	public void abrir() throws Exception {
+		if(this.status == null){
+			this.status = new QueixaAberta();
+		}else{
+			this.status = status.abrirQueixa();
+		}
+	}
+
+	public void fechar() throws Exception {
+		this.status = status.fecharQueixa();
 	}
 	
-	public Endereco getEnderecoEstabelecimento() {
-		return enderecoEstabelecimento;
-	}
-
-	public void setSituacao(SituacaoQueixa situacao) {
-		this.situacao = situacao;
-	}
-
-	public void abrir() throws ObjetoInvalidoException {
-		if (this.situacao != SituacaoQueixa.EM_ANDAMENTO)
-			this.situacao = SituacaoQueixa.ABERTA;
-		else
-			throw new ObjetoInvalidoException("Status inválido");
-	}
-
-	public void fechar(String coment) throws ObjetoInvalidoException {
-		if (this.situacao == SituacaoQueixa.EM_ANDAMENTO
-				|| this.situacao == SituacaoQueixa.ABERTA) {
-			this.situacao = SituacaoQueixa.FECHADA;
-			this.comentario = coment;
-		} else
-			throw new ObjetoInvalidoException("Status Inválido");
+	public void resolver() throws Exception {
+		this.status = status.resolverQueixa();
 	}
 
 	public String getComentario() {

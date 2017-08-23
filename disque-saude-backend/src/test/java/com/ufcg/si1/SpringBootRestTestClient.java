@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.ufcg.si1.enums.SituacaoQueixa;
 import com.ufcg.si1.model.*;
+import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.util.ObjWrapper;
 import org.springframework.web.client.RestTemplate;
  
@@ -47,7 +48,7 @@ public class SpringBootRestTestClient {
     }
      
     /* POST */
-    private static void createQueixa() {
+  /**  private static void createQueixa() {
         System.out.println("Testing create Queixa API----------");
         RestTemplate restTemplate = new RestTemplate();
 
@@ -60,7 +61,7 @@ public class SpringBootRestTestClient {
     }
  
     /* PUT */
-    private static void updateQueixa() {
+    /**private static void updateQueixa() {
         System.out.println("Testing update Queixa API----------");
         RestTemplate restTemplate = new RestTemplate();
         Queixa q = new Queixa("Nova queixa com ID 1",
@@ -150,7 +151,7 @@ public class SpringBootRestTestClient {
 
     }
 */
-    private static void fecharQueixa(long i) {
+    /**private static void fecharQueixa(long i) {
         System.out.println("Testing fechar Queixa API----------");
         RestTemplate restTemplate = new RestTemplate();
         Queixa queixa = restTemplate.getForObject(REST_SERVICE_URI+"/queixa/"+i, Queixa.class);
@@ -161,7 +162,7 @@ public class SpringBootRestTestClient {
         System.out.println(queixa.situacao);
 
     }
-
+**/
 
 
 }
