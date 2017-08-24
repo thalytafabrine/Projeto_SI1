@@ -21,13 +21,11 @@ public class CadastroController {
 	
 	@RequestMapping(value = "/cadastro/", method = RequestMethod.POST)
 	public ResponseEntity<Administrador> cadastrar(@RequestBody Administrador administrador) throws Exception {
-		
-		Administrador administradorCadastrado = administradorService.cadastrar(administrador);
-		
-		if (administradorCadastrado == null) {
+		try {
+			Administrador administradorCadastrado = administradorService.cadastrar(administrador);
+			return new ResponseEntity<>(administradorCadastrado, HttpStatus.CREATED);
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-		
-		return new ResponseEntity<>(administradorCadastrado, HttpStatus.CREATED);
 	}
 }

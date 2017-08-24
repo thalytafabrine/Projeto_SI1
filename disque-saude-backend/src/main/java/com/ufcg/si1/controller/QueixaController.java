@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.service.QueixaService;
-import com.ufcg.si1.util.CustomErrorType;
 
 import exceptions.ObjetoInvalidoException;
 
@@ -35,8 +34,7 @@ public class QueixaController {
         List<Queixa> queixas = queixaService.findAllQueixas();
 
         if (queixas.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            // You many decide to return HttpStatus.NOT_FOUND
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<List<Queixa>>(queixas, HttpStatus.OK);
     }
@@ -67,11 +65,10 @@ public class QueixaController {
     public ResponseEntity<?> atualizaQueixa(@PathVariable("id") Long id, @RequestBody Queixa queixa) throws Exception {
     	try {
     		queixaService.atualizarQueixa(id, queixa);
+    		return new ResponseEntity<Queixa>(HttpStatus.OK);
     	} catch (Exception e) {
-    		return new ResponseEntity<>(new CustomErrorType("Impossível atualizar. Queixa com id " + id + " não encontrada"),
- 					HttpStatus.NOT_FOUND);
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
-        return new ResponseEntity<Queixa>(HttpStatus.OK);
     }
     
 
@@ -79,18 +76,17 @@ public class QueixaController {
     public ResponseEntity<?> deleteQueixa(@PathVariable("id") Long id) throws Exception {
     	try {
   			queixaService.excluirQueixaPorId(id);
+  			return new ResponseEntity<Queixa>(HttpStatus.OK);
   		} catch (Exception e) {
- 			return new ResponseEntity<>(new CustomErrorType("Impossível excluir. Queixa com id " + id + " não encontrada."),
- 					HttpStatus.NOT_FOUND);
- 		}
- 		return new ResponseEntity<Queixa>(HttpStatus.OK);
+ 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  		}
     }
 
 
-  /*  @RequestMapping(value = "/fechar", method = RequestMethod.POST)
+  /*@RequestMapping(value = "/fechar", method = RequestMethod.POST)
     public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) throws Exception {
-    	Long id = queixaAFechar.getId();
-    	try {
+   		Long id = queixaAFechar.getId();
+   		try {
  			queixaService.fecharQueixa(queixaAFechar);
  		} catch (Exception e) {
  			return new ResponseEntity<>(new CustomErrorType("Impossível fechar. Queixa com id " + id + " não encontrada."),

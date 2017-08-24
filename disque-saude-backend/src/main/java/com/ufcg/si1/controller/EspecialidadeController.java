@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ufcg.si1.model.Especialidade;
 import com.ufcg.si1.service.EspecialidadeService;
-import com.ufcg.si1.util.CustomErrorType;
 
 @RestController
 @RequestMapping("/especialidade")
@@ -39,8 +38,7 @@ public class EspecialidadeController {
 			Especialidade especialidade = especialidadeService.getEspecialidade(id);
 			return new ResponseEntity<Especialidade>(especialidade, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(new CustomErrorType("Especialidade with id " + id
-					+ " not found"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
 		}
 	}
 	
