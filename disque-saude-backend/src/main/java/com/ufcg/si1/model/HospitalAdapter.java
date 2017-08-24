@@ -11,36 +11,6 @@ public class HospitalAdapter extends UnidadeSaude {
 	}
 	
 	@Override
-	public int getCodigo() {
-        return this.hospital.getCodigo();
-    }
-
-	@Override
-    public void setCodigo(int cod) {
-        this.hospital.setCodigo(cod);
-    }
-	
-	@Override
-	public String getDescricao() {
-        return this.hospital.getDescricao();
-    }
-	
-	@Override
-    public void setDescricao(String descricao) {
-        this.hospital.setDescricao(descricao);
-    }
-
-	@Override
-	public int getContador() {
-		return this.hospital.getContador();
-	}
-	
-	@Override
-	public void setContador(int contador) {
-		this.hospital.setContador(contador);
-	}
-	
-	@Override
 	public int getNumFuncionarios() {
 		return this.hospital.getNumeroMedicos();
 	}
@@ -49,4 +19,5 @@ public class HospitalAdapter extends UnidadeSaude {
 	public float getAtendimentosDiarios() {
 		return this.hospital.getNumeroPacientesDia();
 	}
+	
 }

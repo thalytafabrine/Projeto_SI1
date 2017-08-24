@@ -6,22 +6,13 @@ public class PostoSaude extends UnidadeSaude {
 
     private float taxaDiariaAtendimentos;
 
-    public PostoSaude(String descricao, int numAtendentes, int taxaDiariaAtendimentos) {
-        super(descricao);
+    public PostoSaude(int numAtendentes, int taxaDiariaAtendimentos) {
         this.atendentes = numAtendentes;
         this.taxaDiariaAtendimentos = taxaDiariaAtendimentos;
     }
-
-    public int getAtendentes() {
-        return this.atendentes;
-    }
-
+    
     public void setAtendentes(int atendentes) {
         this.atendentes = atendentes;
-    }
-
-    public float getTaxaDiariaAtendimentos() {
-        return this.taxaDiariaAtendimentos;
     }
 
     public void setTaxaDiariaAtendimentos(float taxaDiariaAtendimentos) {
@@ -30,11 +21,11 @@ public class PostoSaude extends UnidadeSaude {
     
     @Override
     public int getNumFuncionarios() {
-    	return this.getAtendentes();
+    	return this.atendentes;
     }
 
     @Override
     public float getAtendimentosDiarios() {
-    	return this.getTaxaDiariaAtendimentos();
+    	return this.taxaDiariaAtendimentos;
     }
 }

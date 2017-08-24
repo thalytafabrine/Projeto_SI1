@@ -3,46 +3,48 @@ package com.ufcg.si1.model;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = PostoSaude.class, name = "posto")
+        @JsonSubTypes.Type(value = PostoSaude.class, name = "posto"),
+        @JsonSubTypes.Type(value = HospitalAdapter.class, name = "hospital")
 })
+@Entity
 public abstract class UnidadeSaude {
 
-    private int codigo;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    private String descricao;
+	@ManyToMany
+    private List<Especialidade> especialidades;
 
-    private List<Especialidade> especialidades = new ArrayList<>();
+    private int numPacientesDiarios;
+    
+    private int numAtendentes;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private EnderecoUnidadeSaude endereco;
 
-    private long [] numeroQueixas = new long[1000];
-
-    int contador = 0;
-
-    public UnidadeSaude(String descricao) {
-        this.codigo = 0; // gerado no repositorio
-        this.descricao = descricao;
+    public UnidadeSaude(Long id, List<Especialidade> especialidades, int numAtendentes,
+    		int numPacientesDiarios, EnderecoUnidadeSaude endereco) {
+    	this.id = id;
+    	this.especialidades = especialidades;
+    	this.numAtendentes = numAtendentes;
+    	this.numPacientesDiarios = numPacientesDiarios;
+    	this.endereco = endereco;
     }
     
     public UnidadeSaude() {}
-
-    public void addQueixaProxima(long id) {
-        if (this instanceof PostoSaude){
-            numeroQueixas[contador++] = id;
-        }
-    }
-
-    public String getDescricao() {
-        return this.descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 
     public List<Especialidade> getEspecialidades() {
         return this.especialidades;
@@ -52,63 +54,43 @@ public abstract class UnidadeSaude {
         this.especialidades.add(esp);
     }
 
-    public int getCodigo() {
-        return this.codigo;
-    }
-
-    public void setCodigo(int cod) {
-        this.codigo = cod;
-    }
-
-	public int getContador() {
-		return contador;
+	public Long getId() {
+		return id;
 	}
 
-	public void setContador(int contador) {
-		this.contador = contador;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public int getNumPacientesDiarios() {
+		return numPacientesDiarios;
+	}
+
+	public void setNumPacientesDiarios(int numPacientesDiarios) {
+		this.numPacientesDiarios = numPacientesDiarios;
+	}
+
+	public int getNumAtendentes() {
+		return numAtendentes;
+	}
+
+	public void setNumAtendentes(int numAtendentes) {
+		this.numAtendentes = numAtendentes;
+	}
+
+	public void setEspecialidades(List<Especialidade> especialidades) {
+		this.especialidades = especialidades;
+	}
+
+	public EnderecoUnidadeSaude getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(EnderecoUnidadeSaude endereco) {
+		this.endereco = endereco;
 	}
 
 	public abstract int getNumFuncionarios();
 
 	public abstract float getAtendimentosDiarios();
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + codigo;
-		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((especialidades == null) ? 0 : especialidades.hashCode());
-		result = prime * result + Arrays.hashCode(numeroQueixas);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-
-		UnidadeSaude other = (UnidadeSaude) obj;
-
-		if (codigo != other.codigo)
-			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (especialidades == null) {
-			if (other.especialidades != null)
-				return false;
-		} else if (!especialidades.equals(other.especialidades))
-			return false;
-		if (!Arrays.equals(numeroQueixas, other.numeroQueixas))
-			return false;
-		return true;
-	}
 }
