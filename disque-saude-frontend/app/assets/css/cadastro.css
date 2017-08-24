@@ -4,7 +4,7 @@ html,body{
     height: 100%;
 }
 
-.login-container{
+.cadastro-container{
     position: relative;
     width: 300px;
     margin: 80px auto;
@@ -31,7 +31,7 @@ html,body{
 }
 
 
-.login-container::before,.login-container::after{
+.cadastro-container::before,.cadastro-container::after{
     content: "";
     position: absolute;
     width: 100%;height: 100%;
@@ -45,7 +45,7 @@ html,body{
 
 }
 
-.login-container::after{
+.cadastro-container::after{
     top: 5px;
     z-index: -2;
     -webkit-transform: rotateZ(-2deg);
@@ -88,7 +88,7 @@ html,body{
     border-top: 0;
 }
 
-.form-box button.login{
+.form-box button.cadastro{
     margin-top:15px;
     padding: 10px 20px;
 }
