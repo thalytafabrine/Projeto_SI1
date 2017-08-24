@@ -45,7 +45,7 @@ public class QueixaController {
     public ResponseEntity<Queixa> abrirQueixa(@RequestBody Queixa queixa) throws Exception {
 
         try {
-        	queixaService.abrirQueixa(queixa);
+        	queixaService.salvarQueixa(queixa);
         	return new ResponseEntity<Queixa>(queixa,HttpStatus.CREATED);
         } catch (ObjetoInvalidoException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -87,7 +87,7 @@ public class QueixaController {
     }
 
 
-    @RequestMapping(value = "/fechar", method = RequestMethod.POST)
+  /*  @RequestMapping(value = "/fechar", method = RequestMethod.POST)
     public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) throws Exception {
     	Long id = queixaAFechar.getId();
     	try {
@@ -98,5 +98,5 @@ public class QueixaController {
  		}
  		return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
     }
-    
+    */
 }
