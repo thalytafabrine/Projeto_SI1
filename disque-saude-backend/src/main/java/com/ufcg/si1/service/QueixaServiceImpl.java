@@ -68,7 +68,7 @@ public class QueixaServiceImpl implements QueixaService {
 
 	@Override
 	public Queixa modificaStatusDaQueixa(Long id, String status) throws Exception {
-		Queixa queixaEncontrada = queixaRepository.findOne(id);
+		Queixa queixaEncontrada = this.queixaRepository.findOne(id);
 		if(status.equals("Abrir")){
 			queixaEncontrada.abrir();
 		}else if(status.equals("Resolver")){
@@ -77,9 +77,16 @@ public class QueixaServiceImpl implements QueixaService {
 			queixaEncontrada.fechar();
 		}
 		
-		queixaRepository.save(queixaEncontrada);
+		this.queixaRepository.save(queixaEncontrada);
 		
 		return queixaEncontrada;
+	}
+
+	@Override
+	public Queixa adicionarComentario(Long id, String comentario) {
+		Queixa queixa = this.queixaRepository.findOne(id);
+		queixa.setComentario(comentario);
+		return this.queixaRepository.save(queixa);
 	}
 
 }

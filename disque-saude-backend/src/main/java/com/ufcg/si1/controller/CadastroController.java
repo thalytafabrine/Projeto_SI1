@@ -20,7 +20,7 @@ public class CadastroController {
 	private AdministradorService administradorService;
 	
 	@RequestMapping(value = "/cadastro/", method = RequestMethod.POST)
-	public ResponseEntity<Administrador> cadastrar(@RequestBody Administrador administrador) {
+	public ResponseEntity<Administrador> cadastrar(@RequestBody Administrador administrador) throws Exception {
 		
 		Administrador administradorCadastrado = administradorService.cadastrar(administrador);
 		

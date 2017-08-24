@@ -7,7 +7,7 @@ import com.ufcg.si1.model.Administrador;
 @Service
 public interface AdministradorService {
 	
-	public Administrador cadastrar(Administrador administrador);
+	public Administrador cadastrar(Administrador administrador) throws Exception;
 	
 	public Administrador logar(Administrador administrador);
 	

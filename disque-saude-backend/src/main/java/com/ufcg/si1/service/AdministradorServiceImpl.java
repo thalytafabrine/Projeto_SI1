@@ -17,9 +17,9 @@ public class AdministradorServiceImpl implements AdministradorService {
 		this.administradorRepository = administradorRepository;
 	}
 
-	public Administrador cadastrar(Administrador administrador) {
-		if (administradorRepository.findByEmail(administrador.getEmail()) != null) {
-				return null;
+	public Administrador cadastrar(Administrador administrador) throws Exception {
+		if (administrador == null || administradorRepository.findByEmail(administrador.getEmail()) != null) {
+				throw new Exception("Não foi possível efetuar cadastro.");
 		}
 		return administradorRepository.save(administrador);
 	}

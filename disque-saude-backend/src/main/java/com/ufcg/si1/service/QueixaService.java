@@ -20,6 +20,8 @@ public interface QueixaService {
 
 	Queixa modificaStatusDaQueixa(Long id, String status) throws Exception;
 
+	Queixa adicionarComentario(Long id, String comentario);
+
 //	boolean isUserExist(Queixa user);
 	
 }
