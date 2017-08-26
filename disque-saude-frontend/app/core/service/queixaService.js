@@ -8,13 +8,13 @@ app.service("queixaApi", function ($http, config) {
     	return $http.post(config.baseUrl + "/comentarioQueixa/" + queixa);
     }
 
-    var _getSituacaoGeralQueixa = function () {
+    var _getSituacaoGeralQueixas = function () {
     	return $http.get(config.baseUrl + "/geral/situacao/");
     }
 
      return {
         modificaStatusDaQueixa : _modificaStatusDaQueixa,
         adicionaComentarioNaQueixa : _adicionaComentarioNaQueixa,
-        getSituacaoGeralQueixa : _getSituacaoGeralQueixa
+        getSituacaoGeralQueixas : _getSituacaoGeralQueixas
     }
 });
