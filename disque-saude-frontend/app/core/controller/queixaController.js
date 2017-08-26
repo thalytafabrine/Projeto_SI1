@@ -1,6 +1,6 @@
-app.controller("complaintCtrl", function ($scope, $http, toastr, $location, $routeParams) {
+app.controller("queixaCtrl", function ($scope, $http, toastr, $location, $routeParams) {
 
-    $scope.registerComplaint = function (complaint) {
+    $scope.registrarQueixa = function (complaint) {
         $http.post("http://localhost:5000/SpringBootRestApi/queixa/", JSON.stringify(complaint))
             .then(function success(response) {
                 toastr.success("Queixa adicionada com sucesso!");
@@ -13,7 +13,7 @@ app.controller("complaintCtrl", function ($scope, $http, toastr, $location, $rou
 
     $scope.complaint;
 
-    $scope.searchComplaint = function (id) {
+    $scope.procurarQueixa = function (id) {
         $http.get("http://localhost:5000/SpringBootRestApi/queixa/" + id).then(function successCallback(response) {
             $scope.complaint = response.data;
         }, function errorCallback(error) {
@@ -25,7 +25,7 @@ app.controller("complaintCtrl", function ($scope, $http, toastr, $location, $rou
     $scope.situation = "";
 
     // verificar se o http.get esta correto
-    var getGeneralSituationComplaints = function (neighborhood) {
+    var getSituacaoGeralQueixas = function (neighborhood) {
         $http.get("http://localhost:5000/SpringBootRestApi/queixa/geral/situacao")
             .then(function success(response) {
                 console.log(response.data.obj);
@@ -56,18 +56,18 @@ app.controller("complaintCtrl", function ($scope, $http, toastr, $location, $rou
             });
     }
 
-    getGeneralSituationComplaints();
+    getSituacaoGeralQueixas();
 
-    $scope.responseComplaintId = "";
+    $scope.respostaQueixaId = "";
     var showMessage = function () {
-        $scope.responseComplaintId = $routeParams.id;
+        $scope.respostaQueixaId = $routeParams.id;
     }
 
     showMessage();
 
     $scope.complaints = "";
 
-    var getComplaints = function () {
+    var getQueixas = function () {
         $http.get("http://localhost:5000/SpringBootRestApi/queixa/")
             .then(function success(response) {
                 $scope.complaints = response.data;
@@ -76,6 +76,6 @@ app.controller("complaintCtrl", function ($scope, $http, toastr, $location, $rou
 
     };
 
-    getComplaints();
+    getQueixas();
 
 });

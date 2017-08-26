@@ -1,12 +1,12 @@
-app.controller("healthUnitCtrl", function ($scope, $http) {
+app.controller("unidadeDeSaudeCtrl", function ($scope, $http) {
 
-    $scope.units = [];
+    $scope.unidades = [];
 
-    $scope.searchHU = function (neighborhood) {
+    $scope.procuraHU = function (neighborhood) {
         $http.get("http://localhost:5000/SpringBootRestApi/unidade/busca?bairro=" + neighborhood)
             .then(function success(response) {
-                $scope.units = [];
-                $scope.units.push(response.data);
+                $scope.unidades = [];
+                $scope.unidades.push(response.data);
                 console.log("Foram encontradas Unidades de saúde");
                 console.log(response.data);
             }, function failed(error) {
@@ -15,11 +15,11 @@ app.controller("healthUnitCtrl", function ($scope, $http) {
             });
     }
 
-    $scope.average = null;
+    $scope.media = null;
 
-    $scope.searchAveragePerPatient = function (id) {
+    $scope.pesquisaMediaPorPaciente = function (id) {
         $http.get("http://localhost:5000/SpringBootRestApi/unidade/geral/medicos/" + id).then(function successCallback(response) {
-            $scope.average = response.data.obj;
+            $scope.media = response.data.obj;
         }, function errorCallback(error) {
             console.log("Unidade Não Encontrada");
         });

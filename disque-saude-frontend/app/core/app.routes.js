@@ -1,24 +1,24 @@
 app.config(function ($routeProvider) {
     $routeProvider.when("/",{
-        templateUrl: "view/search.html"
+        templateUrl: "view/pesquisa.html"
     }).when("/complaint/register", {
-        templateUrl: "view/registerComplaint.html",
-        controller : "complaintCtrl",
-    }).when("/searchcomplaint", {
-        templateUrl : "view/search_complaint.html",
-        controller: "complaintCtrl"
+        templateUrl: "view/registrarQueixa.html",
+        controller : "queixaCtrl",
+    }).when("/pesquisaQueixa", {
+        templateUrl : "view/pesquisaQueixa.html",
+        controller: "queixaCtrl"
     }).when("/createdcomplaint/:id", {
-        templateUrl : "view/successPage.html",
-        controller : "complaintCtrl"
+        templateUrl : "view/paginaDeSucesso.html",
+        controller : "queixaCtrl"
     }).when("/generalSituationComplaints", {
-        templateUrl : "view/generalSituationComplaints.html",
-        controller : "complaintCtrl"
+        templateUrl : "view/situacaoGeralQueixas.html",
+        controller : "queixaCtrl"
     }).when("/search_health_unit", {
-        templateUrl: "view/searchHealthUnit.html",
-        controller : "healthUnitCtrl",
+        templateUrl: "view/pesquisaUnidadeDeSaude.html",
+        controller : "unidadeDeSaudeCtrl",
     }).when("/searchaverage",{
-        templateUrl : "view/search_average_per_patient.html",
-        controller: "healthUnitCtrl"
+        templateUrl : "view/pesquisaMediaPorPaciente.html",
+        controller: "unidadeDeSaudeCtrl"
     }).when("/login", {
         templateUrl:"view/login.html",
         controller: "loginCtrl"
