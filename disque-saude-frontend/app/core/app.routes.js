@@ -4,7 +4,7 @@ app.config(function ($routeProvider) {
     }).when("/complaint/register", {
         templateUrl: "view/registrarQueixa.html",
         controller : "queixaCtrl",
-    }).when("/pesquisaQueixa", {
+    }).when("/searchcomplaint", {
         templateUrl : "view/pesquisaQueixa.html",
         controller: "queixaCtrl"
     }).when("/createdcomplaint/:id", {
