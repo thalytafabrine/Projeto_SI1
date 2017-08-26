@@ -72,13 +72,13 @@ app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $locati
                 console.log(response.data);
             })
 
-    };
+    }
 
     getQueixas();
 
     $scope.newQueixa = {
-        status = null;
-    }
+        status : null
+    };
 
     $scope.modificarStatusDaQueixa = function (id) {
         var queixaASerModificada = new Object();

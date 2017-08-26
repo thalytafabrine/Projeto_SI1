@@ -13,8 +13,8 @@ app.service("queixaApi", function ($http, config) {
     }
 
      return {
-        modificaStatusDaQueixa: _modificaStatusDaQueixa
-        adicionaComentarioNaQueixa: _adicionaComentarioNaQueixa
-        getSituacaoGeralQueixa = _getSituacaoGeralQueixa
+        modificaStatusDaQueixa : _modificaStatusDaQueixa,
+        adicionaComentarioNaQueixa : _adicionaComentarioNaQueixa,
+        getSituacaoGeralQueixa : _getSituacaoGeralQueixa
     }
 });
