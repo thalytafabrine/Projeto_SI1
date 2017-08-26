@@ -1,4 +1,4 @@
-app.controller("queixaCtrl", function ($scope, $http, toastr, $location, $routeParams) {
+app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $location, $routeParams) {
 
     $scope.registrarQueixa = function (complaint) {
         $http.post("http://localhost:5000/SpringBootRestApi/queixa/", JSON.stringify(complaint))
@@ -24,10 +24,8 @@ app.controller("queixaCtrl", function ($scope, $http, toastr, $location, $routeP
 
     $scope.situation = "";
 
-    // verificar se o http.get esta correto
     var getSituacaoGeralQueixas = function (neighborhood) {
-        $http.get("http://localhost:5000/SpringBootRestApi/queixa/geral/situacao")
-            .then(function success(response) {
+        queixaApi.getSituacaoGeralQueixas().then(function success(response) {
                 console.log(response.data.obj);
 
                 if(response.data.obj == 0){
@@ -78,4 +76,24 @@ app.controller("queixaCtrl", function ($scope, $http, toastr, $location, $routeP
 
     getQueixas();
 
+    $scope.newQueixa = {
+        status = null;
+    }
+
+    $scope.modificarStatusDaQueixa = function (id) {
+        var queixaASerModificada = new Object();
+        queixaASerModificada.id = id;
+        queixaApi.modificarStatusDaQueixa(id, $scope.newQueixa.status).then(function sucess(response) {
+            console.log(response.data)
+        });
+    }
+
+    $scope.adicionaComentarioNaQueixa = function (id, comentario) {
+        var queixaComComentario = new Object();
+        queixaComComentario.comentario = comentario;
+        queixaComComentario.id = id;
+        queixaApi.adicionaComentarioNaQueixa(queixaComComentario).then(function sucess(response) {
+            console.log(response.data)
+        }); 
+    }
 });

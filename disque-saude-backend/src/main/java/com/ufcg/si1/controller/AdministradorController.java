@@ -46,7 +46,7 @@ public class AdministradorController {
 		return new ResponseEntity<Queixa>(queixaModificada, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/geral/situacao", method = RequestMethod.GET)
+	@RequestMapping(value = "/geral/situacao/", method = RequestMethod.GET)
 	public ResponseEntity<SituacaoGeralQueixas> getSituacaoGeralQueixas() {
 		try {
 			SituacaoGeralQueixas situacao = this.prefeituraService.getSituacaoGeral();
