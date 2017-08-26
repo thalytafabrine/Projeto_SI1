@@ -16,4 +16,4 @@ app.controller("cadastroCtrl", function($scope, cadastroApi, $location) {
         $location.path("/");
 
     }
-})
+});

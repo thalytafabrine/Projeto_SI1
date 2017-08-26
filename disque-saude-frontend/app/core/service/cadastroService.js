@@ -7,4 +7,4 @@ app.service("cadastroApi", function($http, config){
 	return {
 		salvarAdministrador: _salvarAdministrador
 	}
-})
+});
