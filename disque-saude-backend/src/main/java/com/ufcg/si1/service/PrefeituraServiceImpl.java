@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ufcg.si1.enums.SituacaoGeralQueixas;
 import com.ufcg.si1.enums.SituacaoPrefeituraEnum;
@@ -16,6 +17,7 @@ import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.repository.PrefeituraRepository;
 import com.ufcg.si1.repository.QueixaRepository;
 
+@Service("prefeituraService")
 public class PrefeituraServiceImpl implements PrefeituraService {
 	
 	@Autowired
