@@ -9,12 +9,17 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.ufcg.si1.model.Endereco;
 import com.ufcg.si1.model.Pessoa;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSubTypes({
+	@JsonSubTypes.Type(value = QueixaAlimentar.class, name = "ALIMENTAR"),
+	@JsonSubTypes.Type(value = QueixaAnimal.class, name = "ANIMAL-PERDIDO")
+	})
 public class Queixa {
 
 	@Id
@@ -32,7 +37,7 @@ public class Queixa {
 	@OneToOne(cascade=CascadeType.ALL)
 	private Endereco endereco;
 
-	private String comentario = ""; // usado na atualizacao da queixa
+	private String comentario = "";
 
 	public Queixa() {}
 
