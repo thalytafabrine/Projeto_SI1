@@ -1,23 +1,14 @@
 package com.ufcg.si1.model.queixa;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 import com.ufcg.si1.enums.SituacaoQueixa;
 
+@Entity
+@DiscriminatorValue(value = "em-andamento")
 public class QueixaEmAndamento extends StatusQueixa {
-	@Id
-	@GeneratedValue
-	private Long id;
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	@Override
 	public StatusQueixa abrirQueixa() throws Exception {
 		return new QueixaEmAndamento();
