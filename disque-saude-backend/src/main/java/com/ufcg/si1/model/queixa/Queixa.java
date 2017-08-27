@@ -18,7 +18,7 @@ import com.ufcg.si1.model.Pessoa;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSubTypes({
 	@JsonSubTypes.Type(value = QueixaAlimentar.class, name = "ALIMENTAR"),
-	@JsonSubTypes.Type(value = QueixaAnimal.class, name = "ANIMAL-PERDIDO")
+	@JsonSubTypes.Type(value = QueixaAnimal.class, name = "ANIMAL")
 	})
 public class Queixa {
 	
