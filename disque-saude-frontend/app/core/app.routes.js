@@ -13,6 +13,9 @@ app.config(function ($routeProvider) {
     }).when("/searchcomplaint", {
         templateUrl : "view/pesquisaQueixa.html",
         controller: "queixaCtrl"
+    }).when("/queixa/listar", {
+        templateUrl : "view/listaQueixas.html",
+        controller : "queixaCtrl"
     }).when("/createdcomplaint/:id", {
         templateUrl : "view/paginaDeSucesso.html",
         controller : "queixaCtrl"

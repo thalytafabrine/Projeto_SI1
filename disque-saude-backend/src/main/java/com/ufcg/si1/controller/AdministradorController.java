@@ -57,6 +57,12 @@ public class AdministradorController {
 		Queixa queixaModificada = queixaService.adicionarComentario(queixa.getId(), queixa.getComentario());
 		return new ResponseEntity<Queixa>(queixaModificada, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/queixa/listar", method = RequestMethod.GET)
+    public ResponseEntity<List<Queixa>> listAllQueixas() {
+        List<Queixa> queixas = queixaService.findAllQueixas();
+        return new ResponseEntity<List<Queixa>>(queixas, HttpStatus.OK);
+    }
 
 	@RequestMapping(value = "/geral/situacao/", method = RequestMethod.GET)
 	public ResponseEntity<SituacaoGeralQueixas> getSituacaoGeralQueixas() {

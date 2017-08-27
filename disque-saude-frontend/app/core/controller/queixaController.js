@@ -33,17 +33,17 @@ app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $locati
 
     $scope.situation = "";
 
-    var getSituacaoGeralQueixas = function (neighborhood) {
+    var getSituacaoGeralQueixas = function () {
         queixaApi.getSituacaoGeralQueixas().then(function success(response) {
-                console.log(response.data.obj);
+                console.log(response.data);
 
-                if(response.data.obj == 0){
+                if(response.data == "RUIM"){
                     $scope.situation = {
                         status: "RUIM",
                         color: "label-danger"
                     };
 
-                } else if(response.data.obj == 1){
+                } else if(response.data == "REGULAR"){
 
                     $scope.situation = {
                         status: "REGULAR",
@@ -72,11 +72,11 @@ app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $locati
 
     showMessage();
 
-    $scope.complaints = "";
+    $scope.queixas = "";
 
     var getQueixas = function () {
         queixaApi.getQueixas().then(function success(response) {
-                $scope.complaints = response.data;
+                $scope.queixas = response.data;
                 console.log(response.data);
             })
 
@@ -105,5 +105,13 @@ app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $locati
         }); 
     }
 
-    
+    $scope.voltar = function () {
+        $location.path("/");
+
+    }
+
+    $scope.voltarMenuAdm = function () {
+        $location.path("/administrador")
+    }
+
 });

@@ -1,7 +1,5 @@
 package com.ufcg.si1.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,16 +27,6 @@ public class QueixaController {
 	public QueixaController(QueixaService queixaService) {
 		this.queixaService = queixaService;
 	}
-	
-	@RequestMapping(value = "/listar", method = RequestMethod.GET)
-    public ResponseEntity<List<Queixa>> listAllQueixas() {
-        List<Queixa> queixas = queixaService.findAllQueixas();
-
-        if (queixas.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<List<Queixa>>(queixas, HttpStatus.OK);
-    }
 
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Queixa> abrirQueixa(@RequestBody Queixa queixa) throws Exception {

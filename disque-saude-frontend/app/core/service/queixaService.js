@@ -21,11 +21,11 @@ app.service("queixaApi", function ($http, config) {
     }
 
     var _getQueixas = function () {
-        return $http.get(config.baseUrl + "/queixa/");
+        return $http.get(config.baseUrl + "/queixa/listar");
     }
 
      return {
-        modificaStatusDaQueixa : _modificaStatusDaQueixa,
+        modificarStatusDaQueixa : _modificaStatusDaQueixa,
         adicionaComentarioNaQueixa : _adicionaComentarioNaQueixa,
         getSituacaoGeralQueixas : _getSituacaoGeralQueixas,
         registrarQueixa : _registrarQueixa,

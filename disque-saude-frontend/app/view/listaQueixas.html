@@ -1,0 +1,37 @@
+<div class="container">
+    <h2>Queixas Registradas</h2>            
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Descrição</th>
+          <th>Status</th>
+          <th>Comentário</th>
+          <th>Adicionar Comentário</th>
+          <th>Modificar Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="queixa in queixas">
+          <td>{{queixa.id}}</td>
+          <td>{{queixa.descricao}}</td>
+          <td>{{queixa.status.type}}</td>
+          <td>{{queixa.comentario}}</td>
+          <td>
+            <input id="comentario" type="text" class="form-control" ng-model = "queixa.comentario">
+            <button ng-click="adicionaComentarioNaQueixa(queixa.id, queixa.comentario)"class="btn btn-primary btn-sm">Adicionar Comentário</button>
+          </td>
+          <td>
+            <select name = "status" ng-model="newQueixa.status">
+                  <option value = "Abrir">ABRIR</option>
+                  <option value = "Fechar">FECHAR</option>
+                  <option value = "Resolver">RESOLVER</option>
+          </select>
+          <input type="submit" value="Submit" ng-click = "modificarStatusDaQueixa(queixa.id)">
+          </td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button type="button" class="btn btn-default" ng-click="voltarMenuAdm()">Voltar</button>
