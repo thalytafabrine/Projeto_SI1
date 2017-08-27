@@ -1,5 +1,10 @@
 package com.ufcg.si1.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue(value = "posto")
 public class PostoSaude extends UnidadeSaude {
 	
     private int atendentes;
@@ -10,6 +15,8 @@ public class PostoSaude extends UnidadeSaude {
         this.atendentes = numAtendentes;
         this.taxaDiariaAtendimentos = taxaDiariaAtendimentos;
     }
+    
+    public PostoSaude() {}
     
     public void setAtendentes(int atendentes) {
         this.atendentes = atendentes;

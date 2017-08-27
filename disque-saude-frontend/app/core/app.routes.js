@@ -19,7 +19,7 @@ app.config(function ($routeProvider) {
     }).when("/createdcomplaint/:id", {
         templateUrl : "view/paginaDeSucesso.html",
         controller : "queixaCtrl"
-    }).when("/generalSituationComplaints", {
+    }).when("/situacaoGeralQueixas", {
         templateUrl : "view/situacaoGeralQueixas.html",
         controller : "queixaCtrl"
     }).when("/search_health_unit", {

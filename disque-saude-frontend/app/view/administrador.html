@@ -1,12 +1,59 @@
 <div class="container">
-    <div class="row">
-        <div class="jumbotron">
-            <h1>ADMINISTRADOR</h1>
-            <p>Escolha a opção</p>
+    <div class="panel panel-default">
+        <div class="panel-heading librePanelHeading">
+            <div class="panel-title">
+                <b class="pull-right glyphicon glyphicon-folder-close libreMenuIcon"></b>
+                <li>
+                    <span>Menu</span>
+                </li>
+            </div>
         </div>
-        <center>
-            <li><a href="#!mudarStatusDaQueixa"><i class="fa fa-search"></i> Modificar Status da Queixa</a></li>
-            <li><a href="#!adicionarUnidadeDeSaude"><i class="fa fa-search"></i> Adicionar unidade de Saúde</a></li>
-        </center>
+        <ul class="list-group collapse in">
+            <li class="list-group-item librePanelListGroupItem">
+                <a data-toggle="collapse" href="" ng-click="getSituacaoGeralQueixas()">
+                        <span>Situacao Geral das Queixas</span>
+                        <b class="pull-right glyphicon glyphicon-chevron-right"></b>
+                    </a>
+
+            </li>
+            <li class="list-group-item librePanelListGroupItem">
+                <a data-toggle="collapse" href="" ng-click="gerenciarQueixas()">
+                        <span>Gerenciar Queixas</span>
+                        <b class="pull-right glyphicon glyphicon-chevron-right"></b>
+                    </a>
+
+            </li>
+            <li class="list-group-item librePanelListGroupItem">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Modifica situação da Prefeitura
+  <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="" ng-click = "modificaStatusPrefeitura('Normal')">Normal</a></li>
+                        <li><a href=""  ng-click = "modificaStatusPrefeitura('Extra')">Extra</a></li>
+                        <li><a href=""  ng-click = "modificaStatusPrefeitura('Caos')">Caos</a></li>
+                    </ul>
+                </div>
+
+            </li>
+            <li class="list-group-item librePanelListGroupItem">
+                <a data-toggle="collapse" href="" ng-click="pesquisaMediaMedicoPorPaciente()">
+                        <span>Média Médico por Paciente</span>
+                        <b class="pull-right glyphicon glyphicon-chevron-right"></b>
+                    </a>
+            </li>
+            <li class="list-group-item librePanelListGroupItem">
+                <a data-toggle="collapse" href="" ng-click="adicionarUS()">
+                        <span>Adicionar unidade de saude</span>
+                        <b class="pull-right glyphicon glyphicon-chevron-right"></b>
+                    </a>
+            </li>
+            <li class="list-group-item librePanelListGroupItem">
+                <a data-toggle="collapse" href="#!add-especialidade" >
+                        <span>Adicionar especialidade</span>
+                        <b class="pull-right glyphicon glyphicon-chevron-right"></b>
+                    </a>
+            </li>
+        </ul>
     </div>
 </div>
+<button type="button" class="btn btn-default" ng-click="voltar()">Voltar</button>

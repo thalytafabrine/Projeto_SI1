@@ -4,22 +4,67 @@
             <div class="col-md-5 col-md-offset-3">
                 <fieldset>
                     <legend>Dados da Unidade de Saúde</legend>
-                    <!--Description field-->
                     <div class="form-group row">
-                        <label for="inputDescription" class="col-sm-2 col-form-label">Número de pacientes:</label>
+                        <label for="inputDescription" class="col-sm-2 col-form-label">Descrição:</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" name="numPacientesDiarios" id="inputNumPacientes" ng-model="unidade.numPacientesDiarios"></textarea>
+                            <textarea class="form-control" name="description" id="inputDescription" ng-model="unidade.descricao"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputNumDoctor" class="col-sm-2 col-form-label">Número de Médicos:</label>
+                        <div class="col-sm-10">
+                            <input type="number" min="1" class="form-control" name="numMedicos" id="inputNumMedicos" ng-model="unidade.numAtendentes">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputNumPatient" class="col-sm-2 col-form-label">Número de Pacientes:</label>
+                        <div class="col-sm-10">
+                            <input type="number" min="0" class="form-control" name="numPacientes" id="inputNumPacientes" ng-model="unidade.numPacientesDiarios">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputType" class="col-sm-2 col-form-label">Tipo:</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label><input type="radio" name="hospital" value="hospital" ng-model="unidade.type">Hospital</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="postoSaude" value="posto" ng-model="unidade.type">Posto de Saúde</label>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
-                <fielset>
+                <fieldset>
+                    <legend>Localização da Unidade de Saúde</legend>
                     <div class="form-group row">
-                        <label for="inputDescription" class="col-sm-2 col-form-label">Número de Atendentes:</label>
+                        <label for="inputStreet" class="col-sm-2 col-form-label">Rua:</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" name="numAtendentes" id="inputNumAtend" ng-model="unidade.numAtendentes"></textarea>
+                            <input type="text" class="form-control" name="street" id="inputStreet" ng-model="unidade.endereco.rua">
                         </div>
                     </div>
-             </fieldset>
+                    <!--City field-->
+                    <div class="form-group row">
+                        <label for="inputCity" class="col-sm-2 col-form-label">Cidade:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="city" id="inputCity" ng-model="unidade.endereco.cidade">
+                        </div>
+                    </div>
+                    <!--UF field-->
+                    <div class="form-group row">
+                        <label for="inputUf" class="col-sm-2 col-form-label">UF:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="uf" id="inputUf" ng-model="unidade.endereco.uf">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputDistrict" class="col-sm-2 col-form-label">Bairro:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="bairro" id="inputDistrict" ng-model="unidade.endereco.bairro">
+                        </div>
+                    </div>
+                </fieldset>
+                <button class="btn btn-primary btn-block" ng-click="adicionarUnidadeDeSaude(unidade)">Adicionar Unidade</button>
+            </div>
         </form>
     </div>
 </div>

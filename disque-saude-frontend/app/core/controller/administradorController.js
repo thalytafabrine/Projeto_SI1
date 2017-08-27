@@ -5,14 +5,22 @@ app.controller("administradorCtrl", function ($scope, adminApi, $location) {
 	}
 
 	$scope.gerenciarQueixas = function() {
-		$location.path("/queixas");
+		$location.path("/queixa/listar");
 	}
 
 	$scope.voltar = function() {
 		$location.path("/");
 	}
 
-	$scope.modificaStatusPrefeitura = function (statusAModificar) {
+	$scope.adicionarUS = function() {
+		$location.path("/adicionarUnidadeDeSaude");
+	}
+
+	$scope.pesquisaMediaMedicoPorPaciente = function() {
+		$location.path("/searchaverage");
+	}
+
+	$scope.modificaStatusPrefeitura = function (novoStatus) {
         adminApi.modificaStatusPrefeitura(novoStatus).then(function sucess(response){
             console.log(response.data)
         });
