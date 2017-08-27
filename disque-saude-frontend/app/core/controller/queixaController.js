@@ -96,4 +96,6 @@ app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $locati
             console.log(response.data)
         }); 
     }
+
+    
 });
