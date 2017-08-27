@@ -9,6 +9,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ufcg.si1.model.Endereco;
 import com.ufcg.si1.model.Pessoa;
 
 @Entity
@@ -27,16 +28,20 @@ public class Queixa {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	public StatusQueixa status;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private Endereco endereco;
 
 	private String comentario = ""; // usado na atualizacao da queixa
 
 	public Queixa() {}
 
-	public Queixa(String descricao, String comentario, StatusQueixa status, String nome, String email) {
+	public Queixa(String descricao, String comentario, StatusQueixa status, String nome, String email, String rua, String cidade, String uf) {
 		this.descricao = descricao;
 		this.comentario = comentario;
 		this.status = status;
 		this.solicitante = new Pessoa(nome, email);
+		this.endereco = new Endereco(rua, uf, cidade);
 	}
 
 	public Long getId() {
@@ -93,6 +98,14 @@ public class Queixa {
 
 	public void setSolicitante(Pessoa solicitante) {
 		this.solicitante = solicitante;
+	}
+	
+	public Endereco getEndereco() {
+		return this.endereco;
+	}
+	
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override

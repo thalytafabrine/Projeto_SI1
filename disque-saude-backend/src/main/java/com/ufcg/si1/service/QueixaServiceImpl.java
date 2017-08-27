@@ -1,6 +1,7 @@
 package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.queixa.Queixa;
+import com.ufcg.si1.model.queixa.StatusQueixa;
 import com.ufcg.si1.repository.QueixaRepository;
 
 import java.util.List;
@@ -69,6 +70,10 @@ public class QueixaServiceImpl implements QueixaService {
 	@Override
 	public Queixa modificaStatusDaQueixa(Long id, String status) throws Exception {
 		Queixa queixaEncontrada = this.queixaRepository.findOne(id);
+		Queixa queixaAtualizada = this.criaQueixaAtualizada(queixaEncontrada);
+		
+		StatusQueixa statusAntigo = queixaEncontrada.getStatus(); 
+		
 		if(status.equals("Abrir")){
 			queixaEncontrada.abrir();
 		}else if(status.equals("Resolver")){
@@ -77,9 +82,13 @@ public class QueixaServiceImpl implements QueixaService {
 			queixaEncontrada.fechar();
 		}
 		
-		this.queixaRepository.save(queixaEncontrada);
+		queixaAtualizada.status = queixaEncontrada.getStatus();
+		queixaEncontrada.status = statusAntigo;
 		
-		return queixaEncontrada;
+		queixaRepository.save(queixaAtualizada);
+		queixaRepository.delete(queixaEncontrada);
+		
+		return queixaAtualizada;
 	}
 
 	@Override
@@ -87,6 +96,19 @@ public class QueixaServiceImpl implements QueixaService {
 		Queixa queixa = this.queixaRepository.findOne(id);
 		queixa.setComentario(comentario);
 		return this.queixaRepository.save(queixa);
+	}
+	
+	private Queixa criaQueixaAtualizada(Queixa queixaEncontrada) {
+		return new Queixa(
+				queixaEncontrada.getDescricao(),
+				queixaEncontrada.getComentario(),
+				queixaEncontrada.getStatus(),
+				queixaEncontrada.getSolicitante().getNome(),
+				queixaEncontrada.getSolicitante().getEmail(),
+				queixaEncontrada.getEndereco().getRua(),
+				queixaEncontrada.getEndereco().getCidade(),
+				queixaEncontrada.getEndereco().getUf()
+				);
 	}
 
 }

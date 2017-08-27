@@ -1,6 +1,8 @@
 app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $location, $routeParams) {
 
     $scope.registrarQueixa = function (complaint) {
+        console.log(complaint);
+        
         $http.post("http://localhost:5000/SpringBootRestApi/queixa/", JSON.stringify(complaint))
             .then(function success(response) {
                 toastr.success("Queixa adicionada com sucesso!");
