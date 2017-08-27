@@ -30,12 +30,14 @@ public class AdministradorController {
 	@Autowired
 	PrefeituraService prefeituraService;
 	
-	@RequestMapping(value = "/statusQueixa/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/statusQueixa/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Queixa> modificaStatusDaQueixa(@PathVariable("id") Long id, @RequestBody String statusQueixa){
 		try {
 			Queixa queixa = queixaService.modificaStatusDaQueixa(id, statusQueixa);
 			return new ResponseEntity<>(queixa, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.toString());
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
