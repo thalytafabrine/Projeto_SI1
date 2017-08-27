@@ -13,19 +13,23 @@ import com.ufcg.si1.model.Administrador;
 import com.ufcg.si1.service.AdministradorService;
 
 @RestController
+@RequestMapping("/cadastro")
 @CrossOrigin
 public class CadastroController {
 
 	@Autowired
 	private AdministradorService administradorService;
 	
-	@RequestMapping(value = "/cadastro/", method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<Administrador> cadastrar(@RequestBody Administrador administrador) throws Exception {
-		try {
-			Administrador administradorCadastrado = administradorService.cadastrar(administrador);
-			return new ResponseEntity<>(administradorCadastrado, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
+		Administrador administradorCadastrado = administradorService.cadastrar(administrador);
+		return new ResponseEntity<>(administradorCadastrado, HttpStatus.CREATED);
+//		
+//		try {
+//			Administrador administradorCadastrado = administradorService.cadastrar(administrador);
+//			return new ResponseEntity<>(administradorCadastrado, HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
 	}
 }
