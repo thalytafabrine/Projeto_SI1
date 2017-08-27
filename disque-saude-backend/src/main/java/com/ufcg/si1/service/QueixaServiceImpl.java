@@ -67,6 +67,8 @@ public class QueixaServiceImpl implements QueixaService {
         return queixa;
     }
 
+    
+    // falta corrigir esse metodo
 	@Override
 	public Queixa modificaStatusDaQueixa(Long id, String status) throws Exception {
 		Queixa queixaEncontrada = this.queixaRepository.findOne(id);

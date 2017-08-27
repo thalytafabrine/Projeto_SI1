@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ufcg.si1.enums.SituacaoGeralQueixas;
+import com.ufcg.si1.model.UnidadeSaude;
 import com.ufcg.si1.model.prefeitura.SituacaoPrefeitura;
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.service.AdministradorService;
 import com.ufcg.si1.service.PrefeituraService;
 import com.ufcg.si1.service.QueixaService;
+import com.ufcg.si1.service.UnidadeSaudeService;
 
 @RestController
 @CrossOrigin
@@ -30,14 +32,15 @@ public class AdministradorController {
 	@Autowired
 	PrefeituraService prefeituraService;
 	
+	@Autowired
+	UnidadeSaudeService unidadeSaudeService;
+	
 	@RequestMapping(value = "/statusQueixa/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Queixa> modificaStatusDaQueixa(@PathVariable("id") Long id, @RequestBody String statusQueixa){
 		try {
 			Queixa queixa = queixaService.modificaStatusDaQueixa(id, statusQueixa);
 			return new ResponseEntity<>(queixa, HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.toString());
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -64,7 +67,9 @@ public class AdministradorController {
 		return new ResponseEntity<>(situacaoPrefeitura, HttpStatus.OK);
 	}
 	
-	/*decidir o q é melhor ser colocado aqui, acho q alguns metodos do queixaController precisar estar aqui,
-	 * apenas n faz sentido estar lá.
-	 */
+	@RequestMapping(value = "/unidade/", method = RequestMethod.POST)
+	public ResponseEntity<UnidadeSaude> addUnidadeSaude(@RequestBody UnidadeSaude unidadeSaude) {
+		UnidadeSaude unidadeAdicionada = this.unidadeSaudeService.insere(unidadeSaude);
+		return new ResponseEntity<>(unidadeAdicionada, HttpStatus.CREATED);
+	}
 }

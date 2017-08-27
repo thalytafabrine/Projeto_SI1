@@ -26,12 +26,6 @@ public class UnidadeController {
 	public UnidadeController(UnidadeSaudeService unidadeService) {
 		this.unidadeSaudeService = unidadeService;
 	}
-
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<UnidadeSaude> incluirUnidadeSaude(@RequestBody UnidadeSaude unidadeSaude) {
-		UnidadeSaude unidadeIncluida = unidadeSaudeService.insere(unidadeSaude);
-		return new ResponseEntity<>(unidadeIncluida, HttpStatus.CREATED);
-	}
 	
 	@RequestMapping(value = "/especialidade", method = RequestMethod.GET)
 	public ResponseEntity<?> consultaEspecialidadeporUnidadeSaude(@RequestBody Long id) {

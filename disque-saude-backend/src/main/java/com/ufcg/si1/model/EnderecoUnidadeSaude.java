@@ -18,6 +18,8 @@ public class EnderecoUnidadeSaude {
 	private String uf;
 
 	private String cidade;
+	
+	public EnderecoUnidadeSaude() {}
 
 	public EnderecoUnidadeSaude(String bairro, String rua, String uf, String cidade) {
 		this.bairro = bairro;
