@@ -100,7 +100,7 @@ app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $locati
         var queixaComComentario = new Object();
         queixaComComentario.comentario = comentario;
         queixaComComentario.id = id;
-        queixaApi.adicionaComentarioNaQueixa(queixaComComentario).then(function sucess(response) {
+        queixaApi.adicionaComentarioNaQueixa(id, comentario).then(function sucess(response) {
             console.log(response.data)
         }); 
     }

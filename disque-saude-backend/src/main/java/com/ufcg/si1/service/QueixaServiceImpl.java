@@ -68,7 +68,6 @@ public class QueixaServiceImpl implements QueixaService {
     }
 
     
-    // falta corrigir esse metodo
 	@Override
 	public Queixa modificaStatusDaQueixa(Long id, String status) throws Exception {
 		Queixa queixaEncontrada = this.queixaRepository.findOne(id);
@@ -95,9 +94,15 @@ public class QueixaServiceImpl implements QueixaService {
 
 	@Override
 	public Queixa adicionarComentario(Long id, String comentario) {
-		Queixa queixa = this.queixaRepository.findOne(id);
-		queixa.setComentario(comentario);
-		return this.queixaRepository.save(queixa);
+		Queixa queixaEncontrada = this.queixaRepository.findOne(id);
+		Queixa queixaAtualizada = this.criaQueixaAtualizada(queixaEncontrada);
+		
+		queixaAtualizada.setComentario(comentario);
+		
+		queixaRepository.save(queixaAtualizada);
+		queixaRepository.delete(queixaEncontrada);
+		
+		return queixaAtualizada;
 	}
 	
 	private Queixa criaQueixaAtualizada(Queixa queixaEncontrada) {

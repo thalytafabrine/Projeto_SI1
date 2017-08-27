@@ -4,8 +4,8 @@ app.service("queixaApi", function ($http, config) {
         return $http.put(config.baseUrl + "/statusQueixa/" + id, status);
     }
 
-    var _adicionaComentarioNaQueixa = function(queixa) {
-    	return $http.post(config.baseUrl + "/comentarioQueixa/" + queixa); //verificar
+    var _adicionaComentarioNaQueixa = function(id, comentario) {
+    	return $http.put(config.baseUrl + "/comentarioQueixa/"+ id, comentario); //verificar
     }
 
     var _getSituacaoGeralQueixas = function () {

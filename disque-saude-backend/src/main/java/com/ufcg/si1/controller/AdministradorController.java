@@ -52,9 +52,9 @@ public class AdministradorController {
 		}
 	}
 	
-	@RequestMapping(value = "/comentarioQueixa/", method = RequestMethod.POST)
-	public ResponseEntity<Queixa> addComentarioNaQueixa(@RequestBody Queixa queixa ) {
-		Queixa queixaModificada = queixaService.adicionarComentario(queixa.getId(), queixa.getComentario());
+	@RequestMapping(value = "/comentarioQueixa/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Queixa> addComentarioNaQueixa(@PathVariable("id") Long id, @RequestBody String comentario) {
+		Queixa queixaModificada = queixaService.adicionarComentario(id, comentario);
 		return new ResponseEntity<Queixa>(queixaModificada, HttpStatus.OK);
 	}
 	
