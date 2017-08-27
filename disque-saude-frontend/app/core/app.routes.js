@@ -28,6 +28,9 @@ app.config(function ($routeProvider) {
     }).when("/administrador", {
         templateUrl: "view/administrador.html",
         controller: "administradorCtrl"
+    }).when("/mudarStatusDaQueixa", {
+        templateUrl: "view/modificarStatusDaQueixa.html",
+        controller: "queixaCtrl"
     }).otherwise({
         redirectTo: '/'
     });
