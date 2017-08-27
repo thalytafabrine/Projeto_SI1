@@ -59,4 +59,11 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
 		unidade.getEspecialidades().add(especialidade);
 		
 	}
+
+	@Override
+	public Float getMediaMedicoPaciente(String bairro) {
+		UnidadeSaude unidadeSaudeEncontrada = this.findByBairro(bairro);
+		float taxa = unidadeSaudeEncontrada.getNumAtendentes()/unidadeSaudeEncontrada.getNumPacientesDiarios();
+		return taxa;
+	}
 }

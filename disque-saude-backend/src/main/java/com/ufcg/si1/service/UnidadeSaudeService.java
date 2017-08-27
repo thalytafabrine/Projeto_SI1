@@ -21,4 +21,6 @@ public interface UnidadeSaudeService {
     void adicionarEspecialidade(Especialidade especialidade, Long id) throws Exception;
 
     UnidadeSaude findByBairro(String bairro);
+
+	Float getMediaMedicoPaciente(String bairro);
 }

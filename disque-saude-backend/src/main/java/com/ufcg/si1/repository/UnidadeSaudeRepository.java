@@ -10,5 +10,5 @@ public interface UnidadeSaudeRepository extends JpaRepository<UnidadeSaude, Long
 	
 	@Query(value="Select u from UnidadeSaude u where u.endereco.bairro=:pbairro ")
 	UnidadeSaude findByBairro(@Param("pbairro")String bairro);
-
+	
 }

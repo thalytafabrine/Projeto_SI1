@@ -49,7 +49,7 @@ public class UnidadeController {
 		}
 	}
 
-	@RequestMapping(value = "/unidade/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> consultarUnidadeSaude(@PathVariable("id") Long id) {
 
 		try {
@@ -59,7 +59,6 @@ public class UnidadeController {
 			return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
 		}
 	}
-
 
 	@RequestMapping(value = "/geral/medicos/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> calcularMediaMedicoPacienteDia(@PathVariable("id") Long id) {
