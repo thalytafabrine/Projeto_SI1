@@ -1,4 +1,4 @@
-app.controller("unidadeDeSaudeCtrl", function ($scope, $http) {
+app.controller("unidadeDeSaudeCtrl", function ($scope, unidadeApi, $http) {
 
     $scope.unidades = [];
 
@@ -25,4 +25,9 @@ app.controller("unidadeDeSaudeCtrl", function ($scope, $http) {
         });
     }
 
+    $scope.adicionaUnidadeDeSaude = function (unidade) {
+        unidadeApi.adicionaUnidadeDeSaude(unidade).then(function response(success) {
+            console.log(response.data);
+        });
+    }
 });

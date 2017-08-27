@@ -1,4 +1,4 @@
-app.controller("administradorCtrl", function($scope, $location) { 
+app.controller("administradorCtrl", function ($scope, adminApi, $location) { 
 
 	$scope.getSituacaoGeralQueixas = function() {
 		$location.path("/situacaoGeralQueixas");
@@ -11,6 +11,12 @@ app.controller("administradorCtrl", function($scope, $location) {
 	$scope.voltar = function() {
 		$location.path("/");
 	}
+
+	$scope.modificaStatusPrefeitura = function (statusAModificar) {
+        adminApi.modificaStatusPrefeitura(novoStatus).then(function sucess(response){
+            console.log(response.data)
+        });
+    }
 });
 
 
