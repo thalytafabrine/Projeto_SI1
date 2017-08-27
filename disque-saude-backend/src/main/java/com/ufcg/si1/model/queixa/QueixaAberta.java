@@ -8,7 +8,7 @@ import com.ufcg.si1.enums.SituacaoQueixa;
 @Entity
 @DiscriminatorValue(value = "aberta")
 public class QueixaAberta extends StatusQueixa {
-
+	
 	@Override
 	public StatusQueixa abrirQueixa() throws Exception {
 		throw new Exception("Queixa já esta aberta");

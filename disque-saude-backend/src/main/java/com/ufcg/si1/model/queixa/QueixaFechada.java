@@ -13,7 +13,7 @@ public class QueixaFechada extends StatusQueixa {
 	public StatusQueixa abrirQueixa() throws Exception {
 		throw new Exception("Queixa já está fechada.");
 	}
-
+	
 	@Override
 	public StatusQueixa resolverQueixa() throws Exception {
 		throw new Exception("Queixa já está fechada.");

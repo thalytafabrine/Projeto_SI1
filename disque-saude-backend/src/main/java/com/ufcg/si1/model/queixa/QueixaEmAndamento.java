@@ -18,7 +18,7 @@ public class QueixaEmAndamento extends StatusQueixa {
 	public StatusQueixa resolverQueixa() throws Exception {
 		throw new Exception("Queixa já está em andamento.");
 	}
-
+	
 	@Override
 	public StatusQueixa fecharQueixa() {
 		return new QueixaFechada();
