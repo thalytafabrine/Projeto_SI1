@@ -21,7 +21,7 @@ import com.ufcg.si1.model.Pessoa;
 	@JsonSubTypes.Type(value = QueixaAnimal.class, name = "ANIMAL-PERDIDO")
 	})
 public class Queixa {
-
+	
 	@Id
 	@GeneratedValue
 	private Long id;

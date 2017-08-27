@@ -83,7 +83,7 @@ public class QueixaServiceImpl implements QueixaService {
 		}else{
 			queixaEncontrada.fechar();
 		}
-		
+
 		queixaAtualizada.status = queixaEncontrada.getStatus();
 		queixaEncontrada.status = statusAntigo;
 		
