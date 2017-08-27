@@ -1,8 +1,7 @@
 app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $location, $routeParams) {
 
-    $scope.registrarQueixa = function (complaint) {
-        console.log(complaint);
-        
+    $scope.registrarQueixa = function (complaint, tipo) {
+        complaint.type = tipo;
         queixaApi.registrarQueixa(complaint).then(function success(response) {
                 toastr.success("Queixa adicionada com sucesso!");
                 $location.path('/createdcomplaint/' + response.data.id);
@@ -10,6 +9,15 @@ app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $locati
                 console.log(error);
                 console.log("Problemas ao tentar adicionar queixa.");
             });
+    }
+
+    $scope.registraQueixaTipo = function() {
+        if($scope.tipo == "ALIMENTAR"){
+            $location.path("/registrarQueixaAlimentar");
+        }else if($scope.tipo == "ANIMAL"){
+            $location.path("/registrarQueixaAnimal");
+        }
+        console.log($scope.tipo);
     }
 
     $scope.complaint;

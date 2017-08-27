@@ -38,17 +38,6 @@ public class UnidadeController {
 		}
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllUnidades() {
-		List<UnidadeSaude> unidades = unidadeSaudeService.getAll();
-		if (unidades.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		else{
-			return new ResponseEntity<>(unidades, HttpStatus.OK);
-		}
-	}
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> consultarUnidadeSaude(@PathVariable("id") Long id) {
 
