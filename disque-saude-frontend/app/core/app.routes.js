@@ -40,6 +40,9 @@ app.config(function ($routeProvider) {
     }).when("/mudarStatusDaQueixa", {
         templateUrl: "view/modificarStatusDaQueixa.html",
         controller: "queixaCtrl"
+    }).when("/adicionarUnidadeDeSaude", {
+        templateUrl: "view/adicionarUnidadeDeSaude.html",
+        controller: "unidadeDeSaudeCtrl"
     }).otherwise({
         redirectTo: '/'
     });

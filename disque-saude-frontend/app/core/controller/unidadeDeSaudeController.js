@@ -25,8 +25,8 @@ app.controller("unidadeDeSaudeCtrl", function ($scope, unidadeApi, $http) {
         });
     }
 
-    $scope.adicionaUnidadeDeSaude = function (unidade) {
-        unidadeApi.adicionaUnidadeDeSaude(unidade).then(function response(success) {
+    $scope.adicionarUnidadeDeSaude = function (unidade) {
+        unidadeApi.adicionarUnidadeDeSaude(unidade).then(function response(success) {
             console.log(response.data);
         });
     }
