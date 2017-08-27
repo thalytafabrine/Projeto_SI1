@@ -3,8 +3,7 @@ app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $locati
     $scope.registrarQueixa = function (complaint) {
         console.log(complaint);
         
-        $http.post("http://localhost:5000/SpringBootRestApi/queixa/", JSON.stringify(complaint))
-            .then(function success(response) {
+        queixaApi.registrarQueixa(complaint).then(function success(response) {
                 toastr.success("Queixa adicionada com sucesso!");
                 $location.path('/createdcomplaint/' + response.data.id);
             }, function error(error) {
@@ -16,7 +15,7 @@ app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $locati
     $scope.complaint;
 
     $scope.procurarQueixa = function (id) {
-        $http.get("http://localhost:5000/SpringBootRestApi/queixa/" + id).then(function successCallback(response) {
+        queixaApi.procurarQueixa(id).then(function successCallback(response) {
             $scope.complaint = response.data;
         }, function errorCallback(error) {
             $scope.complaint = null;
@@ -68,8 +67,7 @@ app.controller("queixaCtrl", function ($scope, queixaApi, $http, toastr, $locati
     $scope.complaints = "";
 
     var getQueixas = function () {
-        $http.get("http://localhost:5000/SpringBootRestApi/queixa/")
-            .then(function success(response) {
+        queixaApi.getQueixas().then(function success(response) {
                 $scope.complaints = response.data;
                 console.log(response.data);
             })
