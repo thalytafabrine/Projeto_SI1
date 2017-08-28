@@ -53,7 +53,7 @@ public class UnidadeController {
 	public ResponseEntity<?> calcularMediaMedicoPacienteDia(@PathVariable("id") Long id) {
 		try {
 			UnidadeSaude unidade = unidadeSaudeService.findById(id);
-			double c = unidade.getNumFuncionarios() / unidade.getAtendimentosDiarios();
+			double c = unidade.getNumMedicos() / unidade.getNumPacientes();
 			return new ResponseEntity<>(new Double(c), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

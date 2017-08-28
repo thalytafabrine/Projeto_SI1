@@ -6,10 +6,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -23,43 +21,41 @@ import javax.persistence.OneToOne;
 public abstract class UnidadeSaude {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-	@ManyToMany
-    private List<Especialidade> especialidades;
-
-    private int numPacientesDiarios;
-    
-    private int numAtendentes;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    private EnderecoUnidadeSaude endereco;
-
+	@GeneratedValue
+	private Long id;
+	
 	private String descricao;
+	
+	@ManyToMany
+	private List<Especialidade> especialidades;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private EnderecoUnidadeSaude endereco;
+	
+	private int numMedicos;
+	
+	private float numPacientes;
 
-    public UnidadeSaude(Long id, String descricao, List<Especialidade> especialidades, int numAtendentes,
-    		int numPacientesDiarios, EnderecoUnidadeSaude endereco) {
-    	this.id = id;
-    	this.descricao = descricao;
-    	this.especialidades = especialidades;
-    	this.numAtendentes = numAtendentes;
-    	this.numPacientesDiarios = numPacientesDiarios;
-    	this.endereco = endereco;
-    }
-    
-    public UnidadeSaude() {}
+	public UnidadeSaude() {
+		super();
+	}
 
-    public List<Especialidade> getEspecialidades() {
-        return this.especialidades;
-    }
-
-    public void adicionarEspecialidade(Especialidade esp) {
-        this.especialidades.add(esp);
-    }
+	public UnidadeSaude(Long id, String descricao, List<Especialidade> especialidades, EnderecoUnidadeSaude endereco,
+			int numMedicos, float numPacientes) {
+		this.id = id;
+		this.descricao = descricao;
+		this.especialidades = especialidades;
+		this.endereco = endereco;
+		this.numMedicos = numMedicos;
+		this.numPacientes = numPacientes;
+	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getDescricao() {
@@ -70,24 +66,8 @@ public abstract class UnidadeSaude {
 		this.descricao = descricao;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public int getNumPacientesDiarios() {
-		return numPacientesDiarios;
-	}
-
-	public void setNumPacientesDiarios(int numPacientesDiarios) {
-		this.numPacientesDiarios = numPacientesDiarios;
-	}
-
-	public int getNumAtendentes() {
-		return numAtendentes;
-	}
-
-	public void setNumAtendentes(int numAtendentes) {
-		this.numAtendentes = numAtendentes;
+	public List<Especialidade> getEspecialidades() {
+		return especialidades;
 	}
 
 	public void setEspecialidades(List<Especialidade> especialidades) {
@@ -102,9 +82,19 @@ public abstract class UnidadeSaude {
 		this.endereco = endereco;
 	}
 
-	@Column(name="num_atendentes")
-	public abstract int getNumFuncionarios();
+	public int getNumMedicos() {
+		return numMedicos;
+	}
 
-	@Column(name="num_pacientes_diarios")
-	public abstract float getAtendimentosDiarios();
+	public void setNumMedicos(int numMedicos) {
+		this.numMedicos = numMedicos;
+	}
+
+	public float getNumPacientes() {
+		return numPacientes;
+	}
+
+	public void setNumPacientes(float numPacientes) {
+		this.numPacientes = numPacientes;
+	}
 }

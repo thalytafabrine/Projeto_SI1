@@ -63,7 +63,7 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
 	@Override
 	public Float getMediaMedicoPaciente(String bairro) {
 		UnidadeSaude unidadeSaudeEncontrada = this.findByBairro(bairro);
-		float taxa = unidadeSaudeEncontrada.getNumAtendentes()/unidadeSaudeEncontrada.getNumPacientesDiarios();
+		float taxa = unidadeSaudeEncontrada.getNumMedicos()/unidadeSaudeEncontrada.getNumPacientes();
 		return taxa;
 	}
 }

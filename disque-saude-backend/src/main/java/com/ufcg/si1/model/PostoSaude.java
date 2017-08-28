@@ -9,21 +9,11 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "posto")
 public class PostoSaude extends UnidadeSaude {
 
-    public PostoSaude(Long id, String descricao, List<Especialidade> especialidades,
-			int numMedicos, int numPacientes, EnderecoUnidadeSaude endereco) {
-		super(id, descricao, especialidades, numMedicos, numPacientes, endereco);
+	public PostoSaude(Long id, String descricao, List<Especialidade> especialidades, EnderecoUnidadeSaude endereco,
+			int numMedicos, float numPacientes) {
+		super(id, descricao, especialidades, endereco, numMedicos, numPacientes);
 	}
     
     public PostoSaude() {}
-
-	@Override
-	public int getNumFuncionarios() {
-		return this.getNumAtendentes();
-	}
-
-	@Override
-	public float getAtendimentosDiarios() {
-		return this.getNumPacientesDiarios();
-	}
 
 }
