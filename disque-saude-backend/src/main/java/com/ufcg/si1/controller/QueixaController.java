@@ -70,18 +70,4 @@ public class QueixaController {
  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   		}
     }
-
-
-  /*@RequestMapping(value = "/fechar", method = RequestMethod.POST)
-    public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) throws Exception {
-   		Long id = queixaAFechar.getId();
-   		try {
- 			queixaService.fecharQueixa(queixaAFechar);
- 		} catch (Exception e) {
- 			return new ResponseEntity<>(new CustomErrorType("Impossível fechar. Queixa com id " + id + " não encontrada."),
- 					HttpStatus.NOT_FOUND);
- 		}
- 		return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
-    }
-    */
 }
