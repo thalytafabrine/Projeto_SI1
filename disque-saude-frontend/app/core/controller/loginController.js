@@ -5,7 +5,8 @@ app.controller("loginCtrl", function($scope, loginApi, $location, $rootScope){
     $scope.login = function(administrador) {
         loginApi.logarAdministrador(administrador).then(function success(response) {
                 console.log("Usuário logado com sucesso");
-                $location.path("/");
+                alert("Seja bem vindo ao sistema do Disque Saude!")
+                $location.path("/administrador");
                 $rootScope.logado = true;
             }, function error(error) {
                 console.log(error);

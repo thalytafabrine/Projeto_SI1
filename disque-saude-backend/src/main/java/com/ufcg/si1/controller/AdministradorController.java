@@ -52,17 +52,11 @@ public class AdministradorController {
 		}
 	}
 	
-	@RequestMapping(value = "/comentarioQueixa/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Queixa> addComentarioNaQueixa(@PathVariable("id") Long id, @RequestBody String comentario) {
-		Queixa queixaModificada = queixaService.adicionarComentario(id, comentario);
+	@RequestMapping(value = "/comentarioQueixa/", method = RequestMethod.POST)
+	public ResponseEntity<Queixa> addComentarioNaQueixa(@RequestBody Queixa queixa ) {
+		Queixa queixaModificada = queixaService.adicionarComentario(queixa.getId(), queixa.getComentario());
 		return new ResponseEntity<Queixa>(queixaModificada, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/queixa/listar", method = RequestMethod.GET)
-    public ResponseEntity<List<Queixa>> listAllQueixas() {
-        List<Queixa> queixas = queixaService.findAllQueixas();
-        return new ResponseEntity<List<Queixa>>(queixas, HttpStatus.OK);
-    }
 
 	@RequestMapping(value = "/geral/situacao/", method = RequestMethod.GET)
 	public ResponseEntity<SituacaoGeralQueixas> getSituacaoGeralQueixas() {

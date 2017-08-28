@@ -16,6 +16,8 @@ public class Especialidade {
     public Especialidade(String descricao) {
         this.descricao = descricao;
     }
+    
+    public Especialidade() {}
 
     public String getDescricao() {
         return this.descricao;
