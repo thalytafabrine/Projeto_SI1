@@ -68,6 +68,13 @@ public class AdministradorController {
 		}
 	}
 	
+	@RequestMapping(value = "/queixa/listar", method = RequestMethod.GET)
+	public ResponseEntity<List<Queixa>> queixas() {
+		List<Queixa> queixas = queixaService.findAllQueixas();
+		return new ResponseEntity<List<Queixa>>(queixas, HttpStatus.OK);
+	}
+	
+	
 	@RequestMapping(value = "/situacaoPrefeitura/", method = RequestMethod.POST)
 	public ResponseEntity<Prefeitura> modificaSituacaoPrefeitura(@RequestBody String situacaoPrefeitura ) {
 		Prefeitura prefeitura = prefeituraService.modificaStatus(situacaoPrefeitura);
