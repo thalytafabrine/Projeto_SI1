@@ -22,6 +22,8 @@ public class Prefeitura {
 		this.situacaoPrefeitura = situacao;
 	}
 	
+	public Prefeitura() {}
+	
 	public SituacaoGeralQueixas getSituacaoGeral(double numQueixasAbertas, int qtdTotalQueixas) {
 		return this.situacaoPrefeitura.getSituacaoGeral(numQueixasAbertas, qtdTotalQueixas);
 	}
