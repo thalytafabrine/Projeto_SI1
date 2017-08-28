@@ -1,0 +1,20 @@
+<div class="container center-block">
+    <div>
+         <form name="complaintForm">
+            <div class="col-md-5 col-md-offset-3">
+                <fieldset>
+                    <legend>Dados da Especialidade</legend>
+                    <!--Description field-->
+                    <div class="form-group row">
+                        <label for="inputDescription" class="col-sm-2 col-form-label">Descrição:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="description" id="inputDescription" ng-model="especialidade.descricao"></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+                <button class="btn btn-primary btn-block" ng-click="adicionaEspecialidade(especialidade)">Adicionar Especialidade</button>
+            </div>
+        </form>
+    </div>
+</div>
+<button type="button" class="btn btn-default" ng-click="voltar()">Voltar</button>

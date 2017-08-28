@@ -43,6 +43,9 @@ app.config(function ($routeProvider) {
     }).when("/adicionarUnidadeDeSaude", {
         templateUrl: "view/adicionarUnidadeDeSaude.html",
         controller: "unidadeDeSaudeCtrl"
+    }).when("/adicionarEspecialidade", {
+        templateUrl: "view/adicionarEspecialidade.html",
+        controller: "especialidadeCtrl"
     }).otherwise({
         redirectTo: '/'
     });

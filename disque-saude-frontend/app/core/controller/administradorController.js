@@ -16,6 +16,10 @@ app.controller("administradorCtrl", function ($scope, adminApi, $location) {
 		$location.path("/adicionarUnidadeDeSaude");
 	}
 
+	$scope.adicionarEspecialidade = function() {
+		$location.path("/adicionarEspecialidade");
+	}
+
 	$scope.pesquisaMediaMedicoPorPaciente = function() {
 		$location.path("/searchaverage");
 	}
