@@ -2,6 +2,7 @@ package com.ufcg.si1.model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import br.edu.ufcg.Hospital;
 
@@ -9,6 +10,7 @@ import br.edu.ufcg.Hospital;
 @DiscriminatorValue(value = "hospital")
 public class HospitalAdapter extends UnidadeSaude {
 	
+	@Transient
 	private Hospital hospital;
 	
 	public HospitalAdapter (String descricao, int medicos, float num) {

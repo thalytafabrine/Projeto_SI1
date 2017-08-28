@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,9 +36,12 @@ public abstract class UnidadeSaude {
     @OneToOne(cascade = CascadeType.ALL)
     private EnderecoUnidadeSaude endereco;
 
-    public UnidadeSaude(Long id, List<Especialidade> especialidades, int numAtendentes,
+	private String descricao;
+
+    public UnidadeSaude(Long id, String descricao, List<Especialidade> especialidades, int numAtendentes,
     		int numPacientesDiarios, EnderecoUnidadeSaude endereco) {
     	this.id = id;
+    	this.descricao = descricao;
     	this.especialidades = especialidades;
     	this.numAtendentes = numAtendentes;
     	this.numPacientesDiarios = numPacientesDiarios;
@@ -56,6 +60,14 @@ public abstract class UnidadeSaude {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public void setId(Long id) {
@@ -90,7 +102,9 @@ public abstract class UnidadeSaude {
 		this.endereco = endereco;
 	}
 
+	@Column(name="num_atendentes")
 	public abstract int getNumFuncionarios();
 
+	@Column(name="num_pacientes_diarios")
 	public abstract float getAtendimentosDiarios();
 }

@@ -37,6 +37,12 @@
                 <fieldset>
                     <legend>Localização da Unidade de Saúde</legend>
                     <div class="form-group row">
+                        <label for="inputDistrict" class="col-sm-2 col-form-label">Bairro:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="bairro" id="inputDistrict" ng-model="unidade.endereco.bairro">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="inputStreet" class="col-sm-2 col-form-label">Rua:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="street" id="inputStreet" ng-model="unidade.endereco.rua">
@@ -54,12 +60,6 @@
                         <label for="inputUf" class="col-sm-2 col-form-label">UF:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="uf" id="inputUf" ng-model="unidade.endereco.uf">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputDistrict" class="col-sm-2 col-form-label">Bairro:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="bairro" id="inputDistrict" ng-model="unidade.endereco.bairro">
                         </div>
                     </div>
                 </fieldset>

@@ -21,7 +21,7 @@ public class EnderecoUnidadeSaude {
 	
 	public EnderecoUnidadeSaude() {}
 
-	public EnderecoUnidadeSaude(String bairro, String rua, String uf, String cidade) {
+	public EnderecoUnidadeSaude(String bairro, String rua, String cidade,String uf) {
 		this.bairro = bairro;
 		this.rua = rua;
 		this.uf = uf;
