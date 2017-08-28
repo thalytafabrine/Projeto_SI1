@@ -1,12 +1,35 @@
 package com.ufcg.si1.model.prefeitura;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.enums.SituacaoGeralQueixas;
 
-public interface SituacaoPrefeitura {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
+@JsonSubTypes({ @JsonSubTypes.Type(value = PrefeituraNormal.class, name = "NORMAL"),
+	@JsonSubTypes.Type(value = PrefeituraExtra.class, name = "EXTRA"),
+	@JsonSubTypes.Type(value = PrefeituraCaos.class, name = "CAOS"), })
+public abstract class SituacaoPrefeitura {
 
-  // dependendo da situacao da prefeitura, o criterio de avaliacao muda
-  // se normal, mais de 20% abertas eh ruim, mais de 10 eh regular
-  // se extra, mais de 10% abertas eh ruim, mais de 5% eh regular
-	SituacaoGeralQueixas getSituacaoGeral(double numQueixasAbertas, int qtdQueixaTotal);
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	abstract SituacaoGeralQueixas getSituacaoGeral(double numQueixasAbertas, int qtdQueixaTotal);
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

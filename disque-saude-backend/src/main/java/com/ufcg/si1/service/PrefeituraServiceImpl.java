@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufcg.si1.enums.SituacaoGeralQueixas;
-import com.ufcg.si1.enums.SituacaoPrefeituraEnum;
 import com.ufcg.si1.enums.SituacaoQueixa;
 import com.ufcg.si1.model.prefeitura.Prefeitura;
+import com.ufcg.si1.model.prefeitura.PrefeituraCaos;
+import com.ufcg.si1.model.prefeitura.PrefeituraExtra;
 import com.ufcg.si1.model.prefeitura.PrefeituraNormal;
-import com.ufcg.si1.model.prefeitura.SituacaoPrefeitura;
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.repository.PrefeituraRepository;
 import com.ufcg.si1.repository.QueixaRepository;
@@ -31,7 +31,6 @@ public class PrefeituraServiceImpl implements PrefeituraService {
 	@PostConstruct
 	public void inicializar() {
 		this.prefeitura = new Prefeitura(new PrefeituraNormal());
-		this.prefeitura.setSituacaPrefeituraEnum(SituacaoPrefeituraEnum.NORMAL);
 		this.prefeituraRepository.save(prefeitura);
 	}
 
@@ -58,8 +57,19 @@ public class PrefeituraServiceImpl implements PrefeituraService {
 	}
 
 	@Override
-	public void setSituacaoPrefeitura(SituacaoPrefeitura situacaoPrefeitura) {
-		this.prefeitura.setSituacaoPrefeitura(situacaoPrefeitura);
+	public Prefeitura modificaStatus(String situacao) {
+		if(situacao.equals("Normal")){
+			prefeitura.setSituacaoPrefeitura(new PrefeituraNormal());
+		}else if(situacao.equals("Extra")){
+			prefeitura.setSituacaoPrefeitura(new PrefeituraExtra());
+			
+		}else{
+			prefeitura.setSituacaoPrefeitura(new PrefeituraCaos());
+		}
+		
+		prefeituraRepository.save(prefeitura);
+		
+		return this.prefeitura;
 	}
 
 }

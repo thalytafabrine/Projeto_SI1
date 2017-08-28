@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ufcg.si1.enums.SituacaoGeralQueixas;
 import com.ufcg.si1.model.Especialidade;
 import com.ufcg.si1.model.UnidadeSaude;
-import com.ufcg.si1.model.prefeitura.SituacaoPrefeitura;
+import com.ufcg.si1.model.prefeitura.Prefeitura;
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.service.AdministradorService;
 import com.ufcg.si1.service.EspecialidadeService;
@@ -52,9 +52,9 @@ public class AdministradorController {
 		}
 	}
 	
-	@RequestMapping(value = "/comentarioQueixa/", method = RequestMethod.POST)
-	public ResponseEntity<Queixa> addComentarioNaQueixa(@RequestBody Queixa queixa ) {
-		Queixa queixaModificada = queixaService.adicionarComentario(queixa.getId(), queixa.getComentario());
+	@RequestMapping(value = "/comentarioQueixa/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Queixa> addComentarioNaQueixa(@PathVariable("id") Long id, @RequestBody String comentario) {
+		Queixa queixaModificada = queixaService.adicionarComentario(id, comentario);
 		return new ResponseEntity<Queixa>(queixaModificada, HttpStatus.OK);
 	}
 
@@ -68,10 +68,10 @@ public class AdministradorController {
 		}
 	}
 	
-	@RequestMapping(value = "/situacaoPrefeitura/", method = RequestMethod.PUT)
-	public ResponseEntity<SituacaoPrefeitura> modificaSituacaoPrefeitura(@RequestBody SituacaoPrefeitura situacaoPrefeitura ) {
-		this.prefeituraService.setSituacaoPrefeitura(situacaoPrefeitura);
-		return new ResponseEntity<>(situacaoPrefeitura, HttpStatus.OK);
+	@RequestMapping(value = "/situacaoPrefeitura/", method = RequestMethod.POST)
+	public ResponseEntity<Prefeitura> modificaSituacaoPrefeitura(@RequestBody String situacaoPrefeitura ) {
+		Prefeitura prefeitura = prefeituraService.modificaStatus(situacaoPrefeitura);
+		return new ResponseEntity<>(prefeitura, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/unidade/", method = RequestMethod.POST)

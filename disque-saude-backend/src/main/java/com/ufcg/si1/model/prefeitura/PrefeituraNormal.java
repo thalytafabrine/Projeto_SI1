@@ -1,8 +1,13 @@
 package com.ufcg.si1.model.prefeitura;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import com.ufcg.si1.enums.SituacaoGeralQueixas;
 
-public class PrefeituraNormal implements SituacaoPrefeitura {
+@Entity
+@DiscriminatorValue(value = "normal")
+public class PrefeituraNormal extends SituacaoPrefeitura {
 
 	private static final double INDICERUIM = 0.2;
 	private static final double INDICEREGULAR = 0.1;
